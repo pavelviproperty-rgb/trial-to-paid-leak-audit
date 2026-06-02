@@ -1,0 +1,80 @@
+name: Request the $29 audit
+description: Submit a narrow trial-to-paid leak audit request.
+title: "[Audit request] "
+labels:
+  - audit-request
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks. This request is for the narrow first-invoice-after-trial audit only.
+  - type: input
+    id: company
+    attributes:
+      label: Company or product name
+      placeholder: ExampleApp
+    validations:
+      required: true
+  - type: input
+    id: website
+    attributes:
+      label: Website
+      placeholder: https://example.com
+    validations:
+      required: true
+  - type: input
+    id: contact
+    attributes:
+      label: Best contact email or handle
+      placeholder: founder@example.com
+    validations:
+      required: true
+  - type: textarea
+    id: pain
+    attributes:
+      label: What are you seeing?
+      description: Describe the trial-to-paid leak, failed first charges, or reporting confusion.
+      placeholder: We see trial users fail on the first paid invoice, but cannot tell if the issue is billing, retries, or product-access logic.
+    validations:
+      required: true
+  - type: dropdown
+    id: stack
+    attributes:
+      label: Billing stack
+      options:
+        - Stripe Billing only
+        - Stripe Billing plus custom app logic
+        - Not sure
+    validations:
+      required: true
+  - type: input
+    id: trial_volume
+    attributes:
+      label: Approximate monthly trial starts
+      placeholder: 400
+    validations:
+      required: true
+  - type: input
+    id: plan_price
+    attributes:
+      label: Approximate first paid amount
+      placeholder: $49
+    validations:
+      required: true
+  - type: dropdown
+    id: evidence_ready
+    attributes:
+      label: Can you provide screenshots or exports?
+      options:
+        - Yes, I can share screenshots and CSV exports
+        - I can share screenshots only
+        - Not yet
+    validations:
+      required: true
+  - type: checkboxes
+    id: consent
+    attributes:
+      label: Confirmation
+      options:
+        - label: I understand this first offer is a diagnostic audit, not a guaranteed recovery service.
+          required: true

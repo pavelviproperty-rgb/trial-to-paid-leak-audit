@@ -1,0 +1,574 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Trial-to-Paid Leak Audit</title>
+    <meta
+      name="description"
+      content="A narrow Stripe audit for SaaS teams leaking revenue between trial end and first payment."
+    >
+    <meta property="og:title" content="Trial-to-Paid Leak Audit">
+    <meta
+      property="og:description"
+      content="Find whether your missed Stripe trial conversions come from payment failures, recovery gaps, or access-state logic."
+    >
+    <meta property="og:type" content="website">
+    <style>
+      :root {
+        --bg: #f3eee4;
+        --paper: #fffdf8;
+        --ink: #1f1d1a;
+        --muted: #5f584f;
+        --line: #d9cdb8;
+        --accent: #be5b2d;
+        --accent-dark: #8f3f19;
+        --accent-soft: #f4d8ca;
+        --good: #275b45;
+        --shadow: 0 18px 50px rgba(39, 29, 10, 0.12);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Avenir Next", "Segoe UI", sans-serif;
+        background:
+          radial-gradient(circle at top left, rgba(190, 91, 45, 0.18), transparent 28rem),
+          linear-gradient(180deg, #f8f2e8 0%, var(--bg) 100%);
+        color: var(--ink);
+      }
+
+      a {
+        color: inherit;
+      }
+
+      .shell {
+        width: min(1120px, calc(100vw - 2rem));
+        margin: 0 auto;
+      }
+
+      .hero {
+        padding: 2rem 0 4rem;
+      }
+
+      .eyebrow {
+        display: inline-block;
+        padding: 0.45rem 0.8rem;
+        border-radius: 999px;
+        background: rgba(255, 253, 248, 0.86);
+        border: 1px solid rgba(31, 29, 26, 0.08);
+        color: var(--muted);
+        font-size: 0.88rem;
+        letter-spacing: 0.02em;
+      }
+
+      h1, h2, h3 {
+        font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", serif;
+        line-height: 0.98;
+        margin: 0;
+      }
+
+      h1 {
+        font-size: clamp(3rem, 7vw, 6.3rem);
+        max-width: 11ch;
+        margin-top: 1rem;
+      }
+
+      .lede {
+        max-width: 44rem;
+        font-size: clamp(1.1rem, 1.9vw, 1.4rem);
+        line-height: 1.55;
+        color: var(--muted);
+        margin: 1.4rem 0 0;
+      }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 1.5rem;
+        align-items: start;
+        margin-top: 2.1rem;
+      }
+
+      .card {
+        background: rgba(255, 253, 248, 0.92);
+        border: 1px solid rgba(31, 29, 26, 0.08);
+        border-radius: 28px;
+        padding: 1.5rem;
+        box-shadow: var(--shadow);
+      }
+
+      .cta-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.9rem;
+        margin-top: 1.6rem;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 3.2rem;
+        padding: 0.85rem 1.2rem;
+        border-radius: 999px;
+        border: 1px solid var(--ink);
+        text-decoration: none;
+        font-weight: 700;
+        transition: transform 160ms ease, background 160ms ease, color 160ms ease;
+      }
+
+      .button:hover {
+        transform: translateY(-2px);
+      }
+
+      .button.primary {
+        background: var(--ink);
+        color: var(--paper);
+        border-color: var(--ink);
+      }
+
+      .button.secondary {
+        background: transparent;
+      }
+
+      .hero-points,
+      .mini-list,
+      .source-list,
+      .faq-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .hero-points li,
+      .mini-list li,
+      .source-list li,
+      .faq-list li {
+        padding-left: 1.1rem;
+        position: relative;
+      }
+
+      .hero-points li::before,
+      .mini-list li::before,
+      .source-list li::before,
+      .faq-list li::before {
+        content: "";
+        width: 0.4rem;
+        height: 0.4rem;
+        border-radius: 50%;
+        background: var(--accent);
+        position: absolute;
+        left: 0;
+        top: 0.62rem;
+      }
+
+      .hero-points li + li,
+      .mini-list li + li,
+      .source-list li + li,
+      .faq-list li + li {
+        margin-top: 0.75rem;
+      }
+
+      section {
+        padding: 1rem 0 2.2rem;
+      }
+
+      .grid-2 {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1.3rem;
+      }
+
+      .grid-3 {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1.1rem;
+      }
+
+      .stat {
+        border-top: 3px solid var(--accent);
+      }
+
+      .stat strong {
+        display: block;
+        font-size: 2rem;
+        margin-bottom: 0.35rem;
+      }
+
+      .label {
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        font-size: 0.78rem;
+        color: var(--muted);
+        margin-bottom: 0.6rem;
+      }
+
+      .section-title {
+        font-size: clamp(2rem, 4vw, 3.4rem);
+        margin-bottom: 0.7rem;
+      }
+
+      .section-text {
+        max-width: 48rem;
+        color: var(--muted);
+        line-height: 1.6;
+        margin-bottom: 1.3rem;
+      }
+
+      .mini-title {
+        font-size: 1.25rem;
+        margin-bottom: 0.75rem;
+      }
+
+      .price {
+        display: flex;
+        align-items: baseline;
+        gap: 0.3rem;
+        margin: 0.75rem 0;
+      }
+
+      .price strong {
+        font-size: 3.1rem;
+      }
+
+      .price span {
+        color: var(--muted);
+      }
+
+      .calculator {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 1.3rem;
+      }
+
+      .fields {
+        display: grid;
+        gap: 0.95rem;
+      }
+
+      label {
+        font-weight: 700;
+        display: grid;
+        gap: 0.45rem;
+      }
+
+      input[type="number"] {
+        width: 100%;
+        padding: 0.95rem 1rem;
+        border-radius: 18px;
+        border: 1px solid var(--line);
+        background: #fff;
+        color: var(--ink);
+        font-size: 1rem;
+      }
+
+      .result-box {
+        background: linear-gradient(180deg, #fff7ee 0%, #fff 100%);
+        border: 1px solid rgba(190, 91, 45, 0.24);
+      }
+
+      .result-value {
+        font-size: clamp(2.6rem, 5vw, 4rem);
+        font-weight: 800;
+        margin: 0.4rem 0 0.8rem;
+      }
+
+      .fine {
+        color: var(--muted);
+        font-size: 0.92rem;
+        line-height: 1.6;
+      }
+
+      .badge {
+        display: inline-block;
+        padding: 0.25rem 0.55rem;
+        border-radius: 999px;
+        background: var(--accent-soft);
+        color: var(--accent-dark);
+        font-size: 0.82rem;
+        font-weight: 700;
+        margin-top: 0.5rem;
+      }
+
+      .footer {
+        padding: 2rem 0 4rem;
+        color: var(--muted);
+      }
+
+      .footer p {
+        line-height: 1.7;
+      }
+
+      @media (max-width: 900px) {
+        .hero-grid,
+        .grid-2,
+        .grid-3,
+        .calculator {
+          grid-template-columns: 1fr;
+        }
+
+        h1 {
+          max-width: 12ch;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero">
+        <span class="eyebrow">Stripe SaaS diagnostic offer</span>
+        <h1>Your trial users may be leaking before the first real charge.</h1>
+        <p class="lede">
+          This narrow audit is for SaaS teams on Stripe Billing who can see missed
+          trial conversions but cannot tell whether the leak is payment failure,
+          weak recovery setup, or product-access logic.
+        </p>
+
+        <div class="cta-row">
+          <a
+            class="button primary"
+            href="https://github.com/pavelviproperty-rgb/trial-to-paid-leak-audit/issues/new?template=request-audit.yml"
+          >Request the $29 audit</a>
+          <a class="button secondary" href="#calculator">Estimate your leak</a>
+        </div>
+
+        <div class="hero-grid">
+          <article class="card">
+            <div class="label">What you get in 24 hours</div>
+            <ul class="hero-points">
+              <li>A focused review of first post-trial invoice failures.</li>
+              <li>A recovery-settings and payment-method collection check.</li>
+              <li>An access-state mismatch review between Stripe and your app.</li>
+              <li>A short evidence report with the top 3 fixes to make first.</li>
+            </ul>
+          </article>
+
+          <aside class="card">
+            <div class="label">Why this offer exists</div>
+            <p class="section-text" style="margin: 0 0 0.8rem">
+              Stripe gives teams revenue-recovery tools, but many operators still
+              do not clearly see what happens on the first invoice after a trial.
+            </p>
+            <span class="badge">Diagnostic first, implementation second</span>
+          </aside>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="section-title">This is not generic dunning.</h2>
+        <p class="section-text">
+          The point is to separate three different problems that often get lumped
+          together: first invoice after trial, normal recurring renewals, and
+          customer access state after a failed charge. If you do not separate
+          those, you can waste weeks tuning the wrong part of the funnel.
+        </p>
+
+        <div class="grid-3">
+          <article class="card stat">
+            <strong>1</strong>
+            <div class="mini-title">First post-trial invoice review</div>
+            <p class="fine">See whether the initial charge is failing before your usual recovery flow even matters.</p>
+          </article>
+          <article class="card stat">
+            <strong>2</strong>
+            <div class="mini-title">Recovery and reminder check</div>
+            <p class="fine">Check if retries, emails, and collection settings are present but still mismatched to the trial flow.</p>
+          </article>
+          <article class="card stat">
+            <strong>3</strong>
+            <div class="mini-title">App access-state check</div>
+            <p class="fine">Find whether your product logic keeps or removes access in ways that hide the real leak.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="calculator">
+        <h2 class="section-title">Quick leak estimate</h2>
+        <p class="section-text">
+          This is only a rough screening calculator. It helps decide whether the
+          leak is worth a small audit right now.
+        </p>
+
+        <div class="calculator">
+          <form class="card fields" id="calc-form">
+            <label>
+              Trial starts per month
+              <input id="trialStarts" type="number" min="0" value="400">
+            </label>
+            <label>
+              Trial-to-paid conversion rate (%)
+              <input id="trialConversion" type="number" min="0" max="100" step="0.1" value="18">
+            </label>
+            <label>
+              First charge failure rate (% of new paid conversions)
+              <input id="failureRate" type="number" min="0" max="100" step="0.1" value="12">
+            </label>
+            <label>
+              Average first-month revenue per new account ($)
+              <input id="firstMonthRevenue" type="number" min="0" step="1" value="49">
+            </label>
+            <label>
+              Recoverable share if fixed (%)
+              <input id="recoverableRate" type="number" min="0" max="100" step="0.1" value="35">
+            </label>
+          </form>
+
+          <article class="card result-box">
+            <div class="label">Estimated monthly leak</div>
+            <div class="result-value" id="monthlyLeak">$0</div>
+            <div class="mini-title">Potential recoverable revenue</div>
+            <p class="section-text" id="recoverableValue" style="margin: 0 0 0.8rem">$0 per month</p>
+            <p class="fine" id="calcNarrative">
+              Based on the defaults above, a team could be leaking meaningful
+              first-month revenue without seeing the exact cause clearly.
+            </p>
+            <div class="cta-row" style="margin-top: 1rem">
+              <a
+                class="button primary"
+                href="https://github.com/pavelviproperty-rgb/trial-to-paid-leak-audit/issues/new?template=request-audit.yml"
+              >Request the audit</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="section-title">Audit scope</h2>
+        <div class="grid-2">
+          <article class="card">
+            <div class="label">Included</div>
+            <ul class="mini-list">
+              <li>Leak classification across billing, recovery, and access logic.</li>
+              <li>Review from screenshots, exports, and notes before deep integration.</li>
+              <li>Prioritized remediation list with likely impact.</li>
+              <li>Short turnaround designed for a fast decision, not a long consulting cycle.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <div class="label">Not included in the first offer</div>
+            <ul class="mini-list">
+              <li>Full account implementation work.</li>
+              <li>Guaranteed revenue recovery promises.</li>
+              <li>Broad dunning optimization across every billing edge case.</li>
+              <li>Emergency fraud response or security incident handling.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="section-title">Why this is credible</h2>
+        <p class="section-text">
+          This offer exists because the blind spot is documented, current, and tied
+          to money already at risk.
+        </p>
+        <div class="card">
+          <ul class="source-list">
+            <li><a href="https://docs.stripe.com/billing/revenue-recovery">Stripe’s revenue recovery docs</a> describe missed trial conversions as part of the problem category.</li>
+            <li><a href="https://docs.stripe.com/billing/revenue-recovery/recovery-analytics">Stripe’s recovery analytics docs</a> explicitly exclude the first invoice payment following a trial.</li>
+            <li><a href="https://www.reddit.com/r/stripe/comments/1t9zpv2/can_you_see_recovery_rates_for_the_first_invoice/">A current Reddit thread</a> shows operators still asking how to measure recovery for that exact first invoice.</li>
+            <li><a href="https://www.indiehackers.com/post/most-failed-stripe-payments-arent-one-problem-they-re-two-completely-different-ones-ce15d1ac7c">A recent Indie Hackers post</a> argues that failed payments split into different operational problems, not one generic bucket.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="section-title">FAQ</h2>
+        <div class="grid-2">
+          <article class="card">
+            <div class="mini-title">Do you need direct Stripe access?</div>
+            <p class="fine">No for the first pass. The audit can start from exports, screenshots, and a description of your access logic.</p>
+          </article>
+          <article class="card">
+            <div class="mini-title">How fast is delivery?</div>
+            <p class="fine">Target turnaround is within 24 hours after the intake arrives in usable shape.</p>
+          </article>
+          <article class="card">
+            <div class="mini-title">What happens after I request the audit?</div>
+            <p class="fine">You submit the issue form, then receive the exact intake checklist and next payment step manually while the checkout flow is being finalized.</p>
+          </article>
+          <article class="card">
+            <div class="mini-title">Is this affiliated with Stripe?</div>
+            <p class="fine">No. This is an independent diagnostic offer for Stripe Billing users.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="footer">
+        <div class="card">
+          <div class="label">Next step</div>
+          <h3 class="mini-title">If the leak estimate feels uncomfortably real, request the audit.</h3>
+          <p>
+            The first version is intentionally narrow and small. The goal is to
+            diagnose one expensive blind spot fast enough to decide whether it is
+            worth deeper implementation work.
+          </p>
+          <div class="cta-row">
+            <a
+              class="button primary"
+              href="https://github.com/pavelviproperty-rgb/trial-to-paid-leak-audit/issues/new?template=request-audit.yml"
+            >Open the request form</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      const money = new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+        maximumFractionDigits: 0,
+      });
+
+      const inputs = {
+        trialStarts: document.getElementById("trialStarts"),
+        trialConversion: document.getElementById("trialConversion"),
+        failureRate: document.getElementById("failureRate"),
+        firstMonthRevenue: document.getElementById("firstMonthRevenue"),
+        recoverableRate: document.getElementById("recoverableRate"),
+      };
+
+      const monthlyLeak = document.getElementById("monthlyLeak");
+      const recoverableValue = document.getElementById("recoverableValue");
+      const calcNarrative = document.getElementById("calcNarrative");
+
+      function safeNumber(value) {
+        const parsed = Number(value);
+        return Number.isFinite(parsed) ? Math.max(parsed, 0) : 0;
+      }
+
+      function calculate() {
+        const trialStarts = safeNumber(inputs.trialStarts.value);
+        const trialConversion = safeNumber(inputs.trialConversion.value) / 100;
+        const failureRate = safeNumber(inputs.failureRate.value) / 100;
+        const firstMonthRevenue = safeNumber(inputs.firstMonthRevenue.value);
+        const recoverableRate = safeNumber(inputs.recoverableRate.value) / 100;
+
+        const newPaidAccounts = trialStarts * trialConversion;
+        const failedFirstCharges = newPaidAccounts * failureRate;
+        const leak = failedFirstCharges * firstMonthRevenue;
+        const recoverable = leak * recoverableRate;
+
+        monthlyLeak.textContent = money.format(leak);
+        recoverableValue.textContent = `${money.format(recoverable)} per month`;
+        calcNarrative.textContent =
+          `${Math.round(failedFirstCharges)} new accounts per month could be failing on the first charge in this scenario. ` +
+          `If even part of that leak is recoverable, it may justify a small diagnostic before more build work.`;
+      }
+
+      Object.values(inputs).forEach((input) => {
+        input.addEventListener("input", calculate);
+      });
+
+      calculate();
+    </script>
+  </body>
+</html>
