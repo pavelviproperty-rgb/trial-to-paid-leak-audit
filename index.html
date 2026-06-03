@@ -16,6 +16,8 @@
     <meta property="og:type" content="website">
     <style>
       :root {
+        --audit-url: "https://buy.stripe.com/6oUdRb0JL37VeqU7A0aR200";
+        --action-url: "https://buy.stripe.com/dRm14p2RTeQD0A4f2saR201";
         --bg: #f3eee4;
         --paper: #fffdf8;
         --ink: #1f1d1a;
@@ -137,6 +139,12 @@
 
       .button.secondary {
         background: transparent;
+      }
+
+      .button.tertiary {
+        background: var(--accent-soft);
+        border-color: rgba(190, 91, 45, 0.35);
+        color: var(--accent-dark);
       }
 
       .hero-points,
@@ -298,6 +306,26 @@
         margin-top: 0.5rem;
       }
 
+      .checkout-band {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.7rem;
+        margin-top: 1rem;
+      }
+
+      .checkout-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        padding: 0.45rem 0.65rem;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: rgba(255, 253, 248, 0.7);
+        color: var(--muted);
+        font-size: 0.9rem;
+        font-weight: 700;
+      }
+
       .footer {
         padding: 2rem 0 4rem;
         color: var(--muted);
@@ -332,11 +360,20 @@
           weak recovery setup, or product-access logic.
         </p>
 
+        <div class="checkout-band" aria-label="Available Stripe checkout options">
+          <span class="checkout-pill">$19 quick audit live now</span>
+          <span class="checkout-pill">$49 action pack available</span>
+        </div>
+
         <div class="cta-row">
           <a
             class="button primary"
-            href="https://github.com/pavelviproperty-rgb/trial-to-paid-leak-audit/issues/new?template=request-audit.yml"
-          >Request the $29 audit</a>
+            href="https://buy.stripe.com/6oUdRb0JL37VeqU7A0aR200"
+          >Buy the $19 audit</a>
+          <a
+            class="button tertiary"
+            href="https://buy.stripe.com/dRm14p2RTeQD0A4f2saR201"
+          >Get the $49 action pack</a>
           <a class="button secondary" href="#calculator">Estimate your leak</a>
         </div>
 
@@ -433,8 +470,12 @@
             <div class="cta-row" style="margin-top: 1rem">
               <a
                 class="button primary"
-                href="https://github.com/pavelviproperty-rgb/trial-to-paid-leak-audit/issues/new?template=request-audit.yml"
-              >Request the audit</a>
+                href="https://buy.stripe.com/6oUdRb0JL37VeqU7A0aR200"
+              >Buy the $19 audit</a>
+              <a
+                class="button tertiary"
+                href="https://buy.stripe.com/dRm14p2RTeQD0A4f2saR201"
+              >Add the $49 action pack</a>
             </div>
           </article>
         </div>
@@ -492,8 +533,8 @@
             <p class="fine">Target turnaround is within 24 hours after the intake arrives in usable shape.</p>
           </article>
           <article class="card">
-            <div class="mini-title">What happens after I request the audit?</div>
-            <p class="fine">You submit the issue form, then receive the exact intake checklist and next payment step manually while the checkout flow is being finalized.</p>
+            <div class="mini-title">What happens after I pay?</div>
+            <p class="fine">You receive the intake checklist and send the screenshots or exports needed for the first diagnostic pass.</p>
           </article>
           <article class="card">
             <div class="mini-title">Is this affiliated with Stripe?</div>
@@ -514,8 +555,12 @@
           <div class="cta-row">
             <a
               class="button primary"
-              href="https://github.com/pavelviproperty-rgb/trial-to-paid-leak-audit/issues/new?template=request-audit.yml"
-            >Open the request form</a>
+              href="https://buy.stripe.com/6oUdRb0JL37VeqU7A0aR200"
+            >Buy the $19 audit</a>
+            <a
+              class="button tertiary"
+              href="https://buy.stripe.com/dRm14p2RTeQD0A4f2saR201"
+            >Get the $49 action pack</a>
           </div>
         </div>
       </section>

@@ -10,8 +10,12 @@ Public landing page for a narrow Stripe diagnostic offer:
 
 This repo is meant to be published on GitHub Pages as a fast public test.
 
+## Checkout
+
+- `$19` MRR Leak Audit Pack: https://buy.stripe.com/6oUdRb0JL37VeqU7A0aR200
+- `$49` MRR Leak Action Pack: https://buy.stripe.com/dRm14p2RTeQD0A4f2saR201
+
 ## Important note
 
-The page is live-first, not infrastructure-complete. The current CTA collects
-request intent via a GitHub issue form while the payment-link flow is still
-being finalized.
+The page is live-first. The primary CTA now sends buyers directly to Stripe
+checkout, with the `$49` action pack available as the first upsell.
