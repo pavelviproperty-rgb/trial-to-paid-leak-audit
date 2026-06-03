@@ -4,11 +4,15 @@ Public landing page for a narrow Stripe diagnostic offer:
 
 - trial-to-paid leak detection;
 - first invoice after trial blind-spot explanation;
-- intake CTA for a `$29` quick audit.
+- free diagnostic checklist;
+- direct checkout for a `$19` quick audit and `$49` action pack.
 
 ## Live intent
 
-This repo is meant to be published on GitHub Pages as a fast public test.
+This repo is published on GitHub Pages as a fast public test.
+
+- Audit page: https://pavelviproperty-rgb.github.io/trial-to-paid-leak-audit/
+- Free checklist: https://pavelviproperty-rgb.github.io/trial-to-paid-leak-audit/checklist.html
 
 ## Checkout
 
@@ -19,3 +23,6 @@ This repo is meant to be published on GitHub Pages as a fast public test.
 
 The page is live-first. The primary CTA now sends buyers directly to Stripe
 checkout, with the `$49` action pack available as the first upsell.
+
+Revenue only counts when Stripe shows a paid checkout. A published page,
+comments, or prepared audit packet are not revenue.
