@@ -1,0 +1,83 @@
+name: Request the AI Agent Cost Leak Audit
+description: Submit redacted usage details for the $49 or $199 AI agent cost audit.
+title: "[AI cost audit] "
+labels:
+  - ai-cost-audit
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this after checkout or before checkout if you want a fit check.
+
+        Keep it safe:
+        - do not include API keys, passwords, secrets, customer personal data, or raw private prompts;
+        - redact account names and customer identifiers;
+        - share only screenshots, CSV summaries, pricing details, and short trace excerpts that are safe to discuss in a public GitHub issue.
+  - type: dropdown
+    id: purchase_status
+    attributes:
+      label: Status
+      options:
+        - I paid for the $49 audit
+        - I paid for the $199 action pack
+        - Fit check before paying
+    validations:
+      required: true
+  - type: input
+    id: product
+    attributes:
+      label: Product or workflow name
+      placeholder: "Example: AI support triage, lead enrichment agent, report generator"
+    validations:
+      required: true
+  - type: input
+    id: price
+    attributes:
+      label: Current pricing
+      placeholder: "Example: $49/month, $199/month, usage credits, internal tool"
+    validations:
+      required: true
+  - type: textarea
+    id: pain
+    attributes:
+      label: What looks expensive or unclear?
+      description: Describe the cost, retry, context, tool-call, usage-cap, or pricing issue.
+      placeholder: We know monthly model spend, but we do not know cost per completed workflow or which users/runs go negative.
+    validations:
+      required: true
+  - type: textarea
+    id: stack
+    attributes:
+      label: AI stack
+      description: Providers, models, framework, agent platform, workflow tool, and billing system if known.
+      placeholder: OpenAI + Anthropic, LangChain, n8n, Stripe, Postgres usage logs.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Safe evidence you can provide
+      description: Summarize screenshots, CSVs, top expensive traces, or 7-30 day usage exports. Do not paste secrets.
+      placeholder: 30-day provider usage CSV, top 20 expensive runs, pricing table, one redacted trace.
+    validations:
+      required: true
+  - type: checkboxes
+    id: needs
+    attributes:
+      label: What do you need most?
+      options:
+        - label: Find the biggest cost leaks.
+        - label: Work out cost per completed workflow.
+        - label: Decide usage caps or credits.
+        - label: Reprice a plan that may be unprofitable.
+        - label: Reduce retries, context, tool calls, or model cost.
+        - label: Build a 48-hour instrumentation checklist.
+  - type: checkboxes
+    id: confirmation
+    attributes:
+      label: Confirmation
+      options:
+        - label: I understand this is a narrow cost and margin audit, not a guarantee of savings.
+          required: true
+        - label: I will not include API keys, passwords, secrets, customer personal data, or unrestricted production access.
+          required: true
