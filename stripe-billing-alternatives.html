@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Stripe Billing Alternatives: Audit Before You Migrate</title>
+    <meta
+      name="description"
+      content="A no-OAuth checklist for SaaS teams comparing Stripe Billing alternatives because failed payments, retries, access state, or recovery analytics feel fuzzy."
+    >
+    <style>
+      :root {
+        --bg: #f3eee4;
+        --paper: #fffdf8;
+        --ink: #1f1d1a;
+        --muted: #5f584f;
+        --line: #d9cdb8;
+        --accent: #be5b2d;
+        --accent-soft: #f4d8ca;
+        --shadow: 0 18px 50px rgba(39, 29, 10, 0.12);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Avenir Next", "Segoe UI", sans-serif;
+        background:
+          radial-gradient(circle at top left, rgba(190, 91, 45, 0.18), transparent 28rem),
+          linear-gradient(180deg, #f8f2e8 0%, var(--bg) 100%);
+        color: var(--ink);
+      }
+
+      main {
+        width: min(980px, calc(100vw - 2rem));
+        margin: 0 auto;
+        padding: 2rem 0 4rem;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      h1,
+      h2,
+      h3 {
+        font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", serif;
+        line-height: 1;
+        margin: 0;
+      }
+
+      h1 {
+        font-size: clamp(2.8rem, 7vw, 5.8rem);
+        max-width: 11ch;
+      }
+
+      h2 {
+        font-size: clamp(1.8rem, 4vw, 3rem);
+        margin-bottom: 0.8rem;
+      }
+
+      h3 {
+        font-size: 1.35rem;
+        margin-bottom: 0.45rem;
+      }
+
+      .eyebrow {
+        display: inline-block;
+        padding: 0.45rem 0.8rem;
+        border-radius: 999px;
+        background: rgba(255, 253, 248, 0.86);
+        border: 1px solid rgba(31, 29, 26, 0.08);
+        color: var(--muted);
+        font-size: 0.88rem;
+        letter-spacing: 0.02em;
+        margin-bottom: 1rem;
+      }
+
+      .lede {
+        max-width: 50rem;
+        font-size: clamp(1.1rem, 1.9vw, 1.35rem);
+        line-height: 1.55;
+        color: var(--muted);
+        margin: 1rem 0 1.4rem;
+      }
+
+      .card {
+        background: rgba(255, 253, 248, 0.94);
+        border: 1px solid rgba(31, 29, 26, 0.08);
+        border-radius: 28px;
+        padding: 1.35rem;
+        box-shadow: var(--shadow);
+        margin-top: 1rem;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1rem;
+      }
+
+      ul {
+        margin: 0;
+        padding-left: 1.2rem;
+      }
+
+      li + li {
+        margin-top: 0.65rem;
+      }
+
+      .button-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.8rem;
+        margin-top: 1.2rem;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 3rem;
+        padding: 0.8rem 1.1rem;
+        border-radius: 999px;
+        border: 1px solid var(--ink);
+        text-decoration: none;
+        font-weight: 800;
+      }
+
+      .primary {
+        background: var(--ink);
+        color: var(--paper);
+      }
+
+      .secondary {
+        background: transparent;
+      }
+
+      .callout {
+        background: var(--accent-soft);
+        border-color: rgba(190, 91, 45, 0.35);
+      }
+
+      .note {
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      @media (max-width: 760px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <span class="eyebrow">Stripe Billing alternatives checklist</span>
+      <h1>Audit before you migrate billing</h1>
+      <p class="lede">
+        If you are comparing Stripe Billing alternatives because failed payments,
+        retries, dunning, or access state feel messy, first separate processor
+        problems from recovery and entitlement problems. Otherwise migration can
+        just move the same leak into a new stack.
+      </p>
+      <div class="button-row">
+        <a class="button primary" href="https://buy.stripe.com/6oUdRb0JL37VeqU7A0aR200">Buy the $19 audit</a>
+        <a class="button secondary" href="./sample-report.html">See sample report</a>
+        <a class="button secondary" href="./checklist.html">Use the free checklist</a>
+      </div>
+
+      <section class="card callout">
+        <h2>The fast decision</h2>
+        <p class="note">
+          Switch providers only after you know which failure bucket is actually
+          costing money. A gateway can improve routing or authorization, but it
+          will not fix unclear app access state, webhook gaps, or first-trial
+          invoice reporting by itself.
+        </p>
+      </section>
+
+      <section class="grid">
+        <article class="card">
+          <h2>Processor problems</h2>
+          <ul>
+            <li>High decline rates from a specific country, issuer, or card type.</li>
+            <li>Authorization or routing costs that make retries expensive.</li>
+            <li>Payment methods your current stack does not support well.</li>
+            <li>Fraud rules blocking legitimate cards before recovery can begin.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h2>State and recovery problems</h2>
+          <ul>
+            <li>First post-trial invoice failures mixed with normal renewal failures.</li>
+            <li>No view of payment failed -> card update started -> invoice paid.</li>
+            <li>Product access stays active, pauses too early, or never restores.</li>
+            <li>Webhook success does not prove your app updated entitlement state.</li>
+          </ul>
+        </article>
+      </section>
+
+      <section class="card">
+        <h2>The 30-minute no-OAuth audit table</h2>
+        <ul>
+          <li>Subscription or invoice id, redacted.</li>
+          <li>Failure bucket: first invoice after trial, normal renewal, or manual/admin state.</li>
+          <li>Decline code, retry count, next attempt, and paid/recovered outcome.</li>
+          <li>Card update started, card updated, or no customer action.</li>
+          <li>App access state at failure, during retry, and after recovery.</li>
+          <li>Whether access state came from webhook, scheduled reconcile, or manual support.</li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h2>When the $19 audit fits</h2>
+        <div class="grid">
+          <ul>
+            <li>You use Stripe Billing or Stripe subscriptions.</li>
+            <li>You have trials, first invoices, or renewal failures.</li>
+            <li>You are considering switching billing tools because recovery feels fuzzy.</li>
+          </ul>
+          <ul>
+            <li>You can share redacted screenshots, exports, counts, or notes.</li>
+            <li>You do not want to connect Stripe OAuth just to classify the leak.</li>
+            <li>You want a short report before deeper implementation work.</li>
+          </ul>
+        </div>
+        <div class="button-row">
+          <a class="button primary" href="https://buy.stripe.com/6oUdRb0JL37VeqU7A0aR200">Buy the $19 audit</a>
+          <a class="button secondary" href="https://github.com/pavelviproperty-rgb/trial-to-paid-leak-audit/issues/new?template=request-audit.yml">Ask for fit check</a>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
