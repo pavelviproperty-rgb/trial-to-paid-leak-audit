@@ -1,4 +1,4 @@
-name: Request the $29 audit
+name: Request the $19 audit
 description: Submit a narrow trial-to-paid leak audit request.
 title: "[Audit request] "
 labels:
@@ -8,6 +8,7 @@ body:
     attributes:
       value: |
         Thanks. This request is for the narrow first-invoice-after-trial audit only.
+        The paid diagnostic starts after the $19 Stripe checkout is complete.
   - type: input
     id: company
     attributes:
