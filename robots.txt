@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://pavelviproperty-rgb.github.io/trial-to-paid-leak-audit/sitemap.xml
