@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Free AI Agent Cost Leak Checklist</title>
+    <meta
+      name="description"
+      content="A no-login checklist for finding token, tool-call, retry, context, and pricing leaks in AI agent workflows."
+    >
+    <style>
+      :root {
+        --bg: #e9efe7;
+        --paper: #fffdf5;
+        --ink: #182019;
+        --muted: #556158;
+        --accent: #2d6a4f;
+        --accent-soft: #d8eadc;
+        --shadow: 0 18px 50px rgba(18, 31, 20, 0.13);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Avenir Next", "Segoe UI", sans-serif;
+        background:
+          radial-gradient(circle at top right, rgba(45, 106, 79, 0.18), transparent 28rem),
+          linear-gradient(180deg, #f7f4e8 0%, var(--bg) 100%);
+        color: var(--ink);
+      }
+
+      main {
+        width: min(980px, calc(100vw - 2rem));
+        margin: 0 auto;
+        padding: 2rem 0 4rem;
+      }
+
+      h1,
+      h2,
+      h3 {
+        font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", serif;
+        line-height: 1;
+        margin: 0;
+      }
+
+      h1 {
+        font-size: clamp(2.8rem, 7vw, 5.6rem);
+        max-width: 12ch;
+      }
+
+      h2 {
+        font-size: clamp(1.8rem, 4vw, 3rem);
+        margin-bottom: 0.8rem;
+      }
+
+      .eyebrow {
+        display: inline-block;
+        padding: 0.45rem 0.8rem;
+        border-radius: 999px;
+        background: rgba(255, 253, 245, 0.86);
+        color: var(--muted);
+        font-size: 0.88rem;
+        margin-bottom: 1rem;
+      }
+
+      .lede,
+      .note {
+        max-width: 52rem;
+        color: var(--muted);
+        font-size: 1.08rem;
+        line-height: 1.6;
+      }
+
+      .card {
+        background: rgba(255, 253, 245, 0.94);
+        border: 1px solid rgba(24, 32, 25, 0.08);
+        border-radius: 28px;
+        padding: 1.35rem;
+        box-shadow: var(--shadow);
+        margin-top: 1rem;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1rem;
+      }
+
+      .button-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.8rem;
+        margin-top: 1.2rem;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 3rem;
+        padding: 0.8rem 1.1rem;
+        border-radius: 999px;
+        border: 1px solid var(--ink);
+        text-decoration: none;
+        color: inherit;
+        font-weight: 800;
+      }
+
+      .primary {
+        background: var(--ink);
+        color: var(--paper);
+      }
+
+      .soft {
+        background: var(--accent-soft);
+        border-color: rgba(45, 106, 79, 0.35);
+      }
+
+      ul {
+        margin: 0;
+        padding-left: 1.2rem;
+      }
+
+      li + li {
+        margin-top: 0.65rem;
+      }
+
+      code {
+        background: rgba(24, 32, 25, 0.08);
+        border-radius: 0.35rem;
+        padding: 0.1rem 0.25rem;
+      }
+
+      @media (max-width: 760px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <span class="eyebrow">Free AI agent cost checklist</span>
+      <h1>Find the workflow that is burning your AI margin</h1>
+      <p class="lede">
+        Use this quick checklist before buying an audit. The goal is to find
+        whether the leak is tokens, retries, tool calls, context, memory, model
+        routing, or flat pricing.
+      </p>
+      <div class="button-row">
+        <a class="button primary" href="https://buy.stripe.com/00w9AVdwxeQDfuY9I8aR206">Buy the $49 audit</a>
+        <a class="button soft" href="./ai-agent-cost-leak-audit.html">Read the full offer</a>
+      </div>
+
+      <section class="grid">
+        <article class="card">
+          <h2>1. Count completed work, not calls</h2>
+          <ul>
+            <li>Pick one workflow: sales research, support triage, HR screening, ops report.</li>
+            <li>Count successful completed runs.</li>
+            <li>Count failed, retried, abandoned, and human-rescued runs separately.</li>
+            <li>Calculate cost per successful workflow, not only cost per token.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h2>2. Tag the top 20 expensive runs</h2>
+          <ul>
+            <li>Model used per step.</li>
+            <li>Input and output tokens per step.</li>
+            <li>Tool calls per run.</li>
+            <li>Context size and memory injected.</li>
+            <li>Whether the run changed a useful business state.</li>
+          </ul>
+        </article>
+      </section>
+
+      <section class="grid">
+        <article class="card">
+          <h2>3. Look for the boring leaks</h2>
+          <ul>
+            <li>Retries after bad tool/API responses.</li>
+            <li>Full chat history passed into every call.</li>
+            <li>Large files parsed again instead of cached.</li>
+            <li>Frontier model used for extraction, routing, or formatting.</li>
+            <li>Agent loops that research before doing the actual task.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h2>4. Add pricing guardrails</h2>
+          <ul>
+            <li>Set a per-workflow cost ceiling.</li>
+            <li>Set a per-user or per-team monthly cap.</li>
+            <li>Define overage before a power user appears.</li>
+            <li>Separate normal month, 2x volume month, and ugly retry-heavy month.</li>
+            <li>Kill or reprice any plan that goes negative in the ugly month.</li>
+          </ul>
+        </article>
+      </section>
+
+      <section class="card">
+        <h2>What to send for the paid audit</h2>
+        <div class="grid">
+          <ul>
+            <li>7-30 days of redacted usage screenshots or CSV.</li>
+            <li>One expensive trace or prompt chain.</li>
+            <li>Pricing plan and included limits.</li>
+            <li>Monthly AI infra spend and current model/provider list.</li>
+          </ul>
+          <ul>
+            <li>No API keys.</li>
+            <li>No passwords.</li>
+            <li>No customer personal data.</li>
+            <li>No unrestricted production account access.</li>
+          </ul>
+        </div>
+        <div class="button-row">
+          <a class="button primary" href="https://buy.stripe.com/00w9AVdwxeQDfuY9I8aR206">Buy the $49 audit</a>
+          <a class="button soft" href="https://buy.stripe.com/8x26oJ0JL9wj4QkaMcaR207">Get the $199 action pack</a>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
