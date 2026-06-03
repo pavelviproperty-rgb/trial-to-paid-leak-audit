@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AI Agent Cost Leak Audit</title>
+    <meta
+      name="description"
+      content="A 24-hour cost leak audit for LLM workflows, agent chains, and fixed-price AI SaaS plans."
+    >
+    <style>
+      :root {
+        --bg: #e9efe7;
+        --paper: #fffdf5;
+        --ink: #182019;
+        --muted: #556158;
+        --line: #c7d3c6;
+        --accent: #2d6a4f;
+        --accent-dark: #153d2e;
+        --accent-soft: #d8eadc;
+        --warn: #9a5a16;
+        --shadow: 0 18px 50px rgba(18, 31, 20, 0.13);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Avenir Next", "Segoe UI", sans-serif;
+        background:
+          radial-gradient(circle at top right, rgba(45, 106, 79, 0.18), transparent 30rem),
+          linear-gradient(180deg, #f7f4e8 0%, var(--bg) 100%);
+        color: var(--ink);
+      }
+
+      main {
+        width: min(1040px, calc(100vw - 2rem));
+        margin: 0 auto;
+        padding: 2rem 0 4rem;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      h1,
+      h2,
+      h3 {
+        font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", serif;
+        line-height: 1;
+        margin: 0;
+      }
+
+      h1 {
+        font-size: clamp(3rem, 7vw, 6rem);
+        max-width: 11ch;
+      }
+
+      h2 {
+        font-size: clamp(1.8rem, 4vw, 3rem);
+        margin-bottom: 0.8rem;
+      }
+
+      h3 {
+        font-size: 1.3rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .eyebrow {
+        display: inline-block;
+        padding: 0.45rem 0.8rem;
+        border-radius: 999px;
+        background: rgba(255, 253, 245, 0.86);
+        border: 1px solid rgba(24, 32, 25, 0.08);
+        color: var(--muted);
+        font-size: 0.88rem;
+        letter-spacing: 0.02em;
+        margin-bottom: 1rem;
+      }
+
+      .lede {
+        max-width: 54rem;
+        font-size: clamp(1.1rem, 1.9vw, 1.35rem);
+        line-height: 1.55;
+        color: var(--muted);
+        margin: 1rem 0 1.4rem;
+      }
+
+      .button-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.8rem;
+        margin-top: 1.2rem;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 3rem;
+        padding: 0.8rem 1.1rem;
+        border-radius: 999px;
+        border: 1px solid var(--ink);
+        text-decoration: none;
+        font-weight: 800;
+      }
+
+      .primary {
+        background: var(--ink);
+        color: var(--paper);
+      }
+
+      .secondary {
+        background: transparent;
+      }
+
+      .tertiary {
+        background: var(--accent-soft);
+        border-color: rgba(45, 106, 79, 0.35);
+        color: var(--accent-dark);
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1rem;
+      }
+
+      .grid-3 {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1rem;
+      }
+
+      .card {
+        background: rgba(255, 253, 245, 0.94);
+        border: 1px solid rgba(24, 32, 25, 0.08);
+        border-radius: 28px;
+        padding: 1.35rem;
+        box-shadow: var(--shadow);
+        margin-top: 1rem;
+      }
+
+      .callout {
+        background: var(--accent-soft);
+        border-color: rgba(45, 106, 79, 0.35);
+      }
+
+      .price strong {
+        display: block;
+        font-size: 3rem;
+        margin: 0.3rem 0;
+      }
+
+      .note,
+      .fine {
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      ul {
+        margin: 0;
+        padding-left: 1.2rem;
+      }
+
+      li + li {
+        margin-top: 0.65rem;
+      }
+
+      code {
+        background: rgba(24, 32, 25, 0.08);
+        border-radius: 0.35rem;
+        padding: 0.1rem 0.25rem;
+      }
+
+      @media (max-width: 760px) {
+        .grid,
+        .grid-3 {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <span class="eyebrow">AI SaaS margin diagnostic</span>
+      <h1>Your AI agent may be helpful and still unprofitable</h1>
+      <p class="lede">
+        Get a 24-hour cost leak audit for LLM workflows, agent chains, and
+        fixed-price AI SaaS plans. We look for the prompts, retries, tools,
+        context, memory, files, and heavy users quietly burning your margin.
+      </p>
+      <div class="button-row">
+        <a class="button primary" href="https://buy.stripe.com/00w9AVdwxeQDfuY9I8aR206">Buy the $49 audit</a>
+        <a class="button tertiary" href="https://buy.stripe.com/8x26oJ0JL9wj4QkaMcaR207">Get the $199 action pack</a>
+      </div>
+
+      <section class="card callout">
+        <h2>The ugly number</h2>
+        <p class="note">
+          Most teams know their monthly AI bill. Fewer know cost per successful
+          user workflow. That is where flat pricing breaks: one agent loop or
+          one power user can erase the margin of ten normal users.
+        </p>
+      </section>
+
+      <section class="grid-3">
+        <article class="card">
+          <h3>For AI SaaS</h3>
+          <p class="fine">
+            Fixed monthly pricing, usage-based LLM costs, and unclear gross
+            margin by user or workflow.
+          </p>
+        </article>
+        <article class="card">
+          <h3>For agent teams</h3>
+          <p class="fine">
+            Multi-step chains with retries, tool calls, memory, long context,
+            file parsing, or browser actions.
+          </p>
+        </article>
+        <article class="card">
+          <h3>For automation agencies</h3>
+          <p class="fine">
+            Client workflows where one bad prompt or runaway retry loop can
+            turn a profitable retainer into a loss.
+          </p>
+        </article>
+      </section>
+
+      <section class="grid">
+        <article class="card">
+          <h2>What we check</h2>
+          <ul>
+            <li>Cost per completed workflow, not only cost per token.</li>
+            <li>Top expensive prompts, traces, users, and task types.</li>
+            <li>Retries, tool-call loops, oversized context, and memory injection.</li>
+            <li>Model routing mismatch: expensive models on cheap tasks.</li>
+            <li>Flat-plan users who can go negative on unit economics.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h2>What you get</h2>
+          <ul>
+            <li>Executive verdict: profitable, risky, or unknown.</li>
+            <li>Top 3 cost leaks and the quickest fixes.</li>
+            <li>Pricing and usage-cap warnings.</li>
+            <li>Instrumentation checklist for the next 48 hours.</li>
+            <li>Action pack option with routing, caching, and guardrail checklist.</li>
+          </ul>
+        </article>
+      </section>
+
+      <section class="grid">
+        <article class="card price">
+          <h2>Quick audit</h2>
+          <strong>$49</strong>
+          <p class="fine">
+            Redacted usage screenshots, exports, or traces in. Short cost-leak
+            report out within 24 hours after usable intake.
+          </p>
+          <div class="button-row">
+            <a class="button primary" href="https://buy.stripe.com/00w9AVdwxeQDfuY9I8aR206">Buy the $49 audit</a>
+          </div>
+        </article>
+        <article class="card price">
+          <h2>Action pack</h2>
+          <strong>$199</strong>
+          <p class="fine">
+            Audit plus model-routing, caching, context-trimming, usage-cap, and
+            pricing guardrail checklist.
+          </p>
+          <div class="button-row">
+            <a class="button tertiary" href="https://buy.stripe.com/8x26oJ0JL9wj4QkaMcaR207">Get the $199 action pack</a>
+          </div>
+        </article>
+      </section>
+
+      <section class="card">
+        <h2>Safe intake</h2>
+        <div class="grid">
+          <ul>
+            <li>Last 7-30 days LLM/API usage screenshot or CSV.</li>
+            <li>Pricing plan and plan limits.</li>
+            <li>Example prompt, trace, or agent run.</li>
+            <li>High-cost run examples if known.</li>
+          </ul>
+          <ul>
+            <li>No API keys.</li>
+            <li>No passwords.</li>
+            <li>No customer personal data.</li>
+            <li>No unrestricted production access.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Not generic AI consulting</h2>
+        <p class="note">
+          This is intentionally narrow: cost, margin, and usage guardrails. If
+          the data does not show a measurable leak, the report says that instead
+          of inventing a roadmap.
+        </p>
+      </section>
+    </main>
+  </body>
+</html>
