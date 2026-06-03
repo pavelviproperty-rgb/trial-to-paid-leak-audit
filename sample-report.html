@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sample Trial-to-Paid Leak Audit Report</title>
+    <meta
+      name="description"
+      content="A sample no-OAuth Stripe Trial-to-Paid Leak Audit report showing what a SaaS team receives after the $19 diagnostic."
+    >
+    <style>
+      :root {
+        --bg: #f3eee4;
+        --paper: #fffdf8;
+        --ink: #1f1d1a;
+        --muted: #5f584f;
+        --line: #d9cdb8;
+        --accent: #be5b2d;
+        --accent-soft: #f4d8ca;
+        --good: #275b45;
+        --warn: #8f3f19;
+        --shadow: 0 18px 50px rgba(39, 29, 10, 0.12);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Avenir Next", "Segoe UI", sans-serif;
+        background:
+          radial-gradient(circle at top left, rgba(190, 91, 45, 0.18), transparent 28rem),
+          linear-gradient(180deg, #f8f2e8 0%, var(--bg) 100%);
+        color: var(--ink);
+      }
+
+      main {
+        width: min(980px, calc(100vw - 2rem));
+        margin: 0 auto;
+        padding: 2rem 0 4rem;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      h1,
+      h2,
+      h3 {
+        font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", serif;
+        line-height: 1;
+        margin: 0;
+      }
+
+      h1 {
+        font-size: clamp(2.8rem, 7vw, 5.8rem);
+        max-width: 11ch;
+      }
+
+      h2 {
+        font-size: clamp(1.8rem, 4vw, 3rem);
+        margin-bottom: 0.8rem;
+      }
+
+      h3 {
+        font-size: 1.3rem;
+        margin-bottom: 0.45rem;
+      }
+
+      .eyebrow {
+        display: inline-block;
+        padding: 0.45rem 0.8rem;
+        border-radius: 999px;
+        background: rgba(255, 253, 248, 0.86);
+        border: 1px solid rgba(31, 29, 26, 0.08);
+        color: var(--muted);
+        font-size: 0.88rem;
+        letter-spacing: 0.02em;
+        margin-bottom: 1rem;
+      }
+
+      .lede {
+        max-width: 48rem;
+        font-size: clamp(1.1rem, 1.9vw, 1.35rem);
+        line-height: 1.55;
+        color: var(--muted);
+        margin: 1rem 0 1.4rem;
+      }
+
+      .card {
+        background: rgba(255, 253, 248, 0.94);
+        border: 1px solid rgba(31, 29, 26, 0.08);
+        border-radius: 28px;
+        padding: 1.35rem;
+        box-shadow: var(--shadow);
+        margin-top: 1rem;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1rem;
+      }
+
+      .grid-2 {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1rem;
+      }
+
+      .metric {
+        border-top: 3px solid var(--accent);
+      }
+
+      .metric strong {
+        display: block;
+        font-size: 2rem;
+        margin-bottom: 0.25rem;
+      }
+
+      .label {
+        color: var(--muted);
+        font-size: 0.82rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        margin-bottom: 0.5rem;
+      }
+
+      ul {
+        margin: 0;
+        padding-left: 1.2rem;
+      }
+
+      li + li {
+        margin-top: 0.65rem;
+      }
+
+      .callout {
+        background: var(--accent-soft);
+        border-color: rgba(190, 91, 45, 0.35);
+      }
+
+      .button-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.8rem;
+        margin-top: 1.2rem;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 3rem;
+        padding: 0.8rem 1.1rem;
+        border-radius: 999px;
+        border: 1px solid var(--ink);
+        text-decoration: none;
+        font-weight: 800;
+      }
+
+      .primary {
+        background: var(--ink);
+        color: var(--paper);
+      }
+
+      .secondary {
+        background: transparent;
+      }
+
+      .note {
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      @media (max-width: 840px) {
+        .grid,
+        .grid-2 {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <span class="eyebrow">Sample $19 no-OAuth audit deliverable</span>
+      <h1>What the audit looks like</h1>
+      <p class="lede">
+        This is a sample report using fictional numbers. The paid audit uses the
+        same structure on your redacted Stripe screenshots, exports, and app
+        access notes.
+      </p>
+      <div class="button-row">
+        <a class="button primary" href="https://buy.stripe.com/6oUdRb0JL37VeqU7A0aR200">Buy the $19 audit</a>
+        <a class="button secondary" href="./">Back to audit page</a>
+        <a class="button secondary" href="./checklist.html">Use the free checklist</a>
+      </div>
+
+      <section class="grid">
+        <article class="card metric">
+          <div class="label">Trial starts</div>
+          <strong>420/mo</strong>
+          <p class="note">Input from trial-created count.</p>
+        </article>
+        <article class="card metric">
+          <div class="label">First charges failed</div>
+          <strong>31</strong>
+          <p class="note">First invoice attempts after trial end.</p>
+        </article>
+        <article class="card metric">
+          <div class="label">Recoverable leak</div>
+          <strong>$410/mo</strong>
+          <p class="note">Rough estimate, not a guarantee.</p>
+        </article>
+      </section>
+
+      <section class="card callout">
+        <h2>Executive diagnosis</h2>
+        <p class="note">
+          The leak is probably not generic churn. The first paid invoice after
+          trial is failing more often than later renewals, and product access
+          appears to stay active for some accounts while Stripe is `past_due`.
+          That means the first fix is measurement and access-state sync, not a
+          broader dunning rewrite.
+        </p>
+      </section>
+
+      <section class="grid-2">
+        <article class="card">
+          <h2>Facts used</h2>
+          <ul>
+            <li>Trial length: 14 days.</li>
+            <li>First-month price: $49.</li>
+            <li>First paid invoice failure rate: 11%.</li>
+            <li>Normal renewal failure rate: 3%.</li>
+            <li>Access state is updated by webhook, not by polling.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h2>Unknowns</h2>
+          <ul>
+            <li>Exact decline-code mix for failed first invoices.</li>
+            <li>Whether all webhook failures are retried successfully.</li>
+            <li>How many failed first invoices belong to active users.</li>
+            <li>Whether reminder timing differs for trial-ending users.</li>
+          </ul>
+        </article>
+      </section>
+
+      <section class="card">
+        <h2>Top 3 fixes</h2>
+        <ul>
+          <li>Add a dedicated `first_post_trial_invoice_failed` segment instead of mixing it with trial conversion or normal renewal recovery.</li>
+          <li>Log `invoice.status`, `subscription.status`, and app access state on the same row for each first paid invoice after trial.</li>
+          <li>Send the first recovery reminder only after confirming whether the user still has product access and recent activity.</li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h2>Action pack preview</h2>
+        <p class="note">
+          The $49 action pack extends the audit into implementation-ready steps:
+          event naming, dashboard columns, reminder timing, and a QA checklist
+          for webhook/access-state sync.
+        </p>
+        <div class="button-row">
+          <a class="button primary" href="https://buy.stripe.com/dRm14p2RTeQD0A4f2saR201">Get the $49 action pack</a>
+          <a class="button secondary" href="https://buy.stripe.com/6oUdRb0JL37VeqU7A0aR200">Start with the $19 audit</a>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
