@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Stripe Webhook Entitlement Leak Audit</title>
+    <meta
+      name="description"
+      content="A no-OAuth Stripe audit for SaaS teams where invoice state and product access state may be drifting apart."
+    >
+    <style>
+      :root {
+        --bg: #f3eee4;
+        --paper: #fffdf8;
+        --ink: #1f1d1a;
+        --muted: #5f584f;
+        --line: #d9cdb8;
+        --accent: #be5b2d;
+        --accent-soft: #f4d8ca;
+        --shadow: 0 18px 50px rgba(39, 29, 10, 0.12);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Avenir Next", "Segoe UI", sans-serif;
+        background:
+          radial-gradient(circle at top left, rgba(190, 91, 45, 0.18), transparent 28rem),
+          linear-gradient(180deg, #f8f2e8 0%, var(--bg) 100%);
+        color: var(--ink);
+      }
+
+      main {
+        width: min(980px, calc(100vw - 2rem));
+        margin: 0 auto;
+        padding: 2rem 0 4rem;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      h1,
+      h2,
+      h3 {
+        font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", serif;
+        line-height: 1;
+        margin: 0;
+      }
+
+      h1 {
+        font-size: clamp(2.8rem, 7vw, 5.6rem);
+        max-width: 12ch;
+      }
+
+      h2 {
+        font-size: clamp(1.8rem, 4vw, 3rem);
+        margin-bottom: 0.8rem;
+      }
+
+      h3 {
+        font-size: 1.35rem;
+        margin-bottom: 0.45rem;
+      }
+
+      .eyebrow {
+        display: inline-block;
+        padding: 0.45rem 0.8rem;
+        border-radius: 999px;
+        background: rgba(255, 253, 248, 0.86);
+        border: 1px solid rgba(31, 29, 26, 0.08);
+        color: var(--muted);
+        font-size: 0.88rem;
+        letter-spacing: 0.02em;
+        margin-bottom: 1rem;
+      }
+
+      .lede {
+        max-width: 52rem;
+        font-size: clamp(1.1rem, 1.9vw, 1.35rem);
+        line-height: 1.55;
+        color: var(--muted);
+        margin: 1rem 0 1.4rem;
+      }
+
+      .card {
+        background: rgba(255, 253, 248, 0.94);
+        border: 1px solid rgba(31, 29, 26, 0.08);
+        border-radius: 28px;
+        padding: 1.35rem;
+        box-shadow: var(--shadow);
+        margin-top: 1rem;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1rem;
+      }
+
+      ul {
+        margin: 0;
+        padding-left: 1.2rem;
+      }
+
+      li + li {
+        margin-top: 0.65rem;
+      }
+
+      .button-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.8rem;
+        margin-top: 1.2rem;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 3rem;
+        padding: 0.8rem 1.1rem;
+        border-radius: 999px;
+        border: 1px solid var(--ink);
+        text-decoration: none;
+        font-weight: 800;
+      }
+
+      .primary {
+        background: var(--ink);
+        color: var(--paper);
+      }
+
+      .secondary {
+        background: transparent;
+      }
+
+      .callout {
+        background: var(--accent-soft);
+        border-color: rgba(190, 91, 45, 0.35);
+      }
+
+      .note {
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      code {
+        background: rgba(31, 29, 26, 0.08);
+        border-radius: 0.35rem;
+        padding: 0.1rem 0.25rem;
+      }
+
+      @media (max-width: 760px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <span class="eyebrow">Stripe webhook + entitlement audit</span>
+      <h1>Your webhook can be green while revenue leaks</h1>
+      <p class="lede">
+        A Stripe webhook returning 200 does not prove your SaaS access state is
+        correct. This no-OAuth audit checks whether failed invoices, retries,
+        paid recovery, and product entitlements drift apart.
+      </p>
+      <div class="button-row">
+        <a class="button primary" href="https://buy.stripe.com/6oUdRb0JL37VeqU7A0aR200">Buy the $19 audit</a>
+        <a class="button secondary" href="./sample-report.html">See sample report</a>
+        <a class="button secondary" href="./checklist.html">Use the free checklist</a>
+      </div>
+
+      <section class="card callout">
+        <h2>The fast diagnosis</h2>
+        <p class="note">
+          The expensive bug is rarely just "Stripe failed". It is usually
+          mismatch: Stripe invoice state says one thing, your subscription row
+          says another, and product access follows a third source of truth.
+        </p>
+      </section>
+
+      <section class="grid">
+        <article class="card">
+          <h2>Leak cases</h2>
+          <ul>
+            <li><code>invoice.payment_failed</code> updates nothing because Stripe will retry anyway.</li>
+            <li><code>invoice.paid</code> succeeds but product access never restores.</li>
+            <li><code>customer.subscription.updated</code> overwrites a more accurate invoice state.</li>
+            <li>A scheduled reconcile job later reverts the correct access state.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h2>What the audit compares</h2>
+          <ul>
+            <li>Invoice/subscription state in Stripe.</li>
+            <li>Webhook event received and handler result.</li>
+            <li>App subscription row before and after the event.</li>
+            <li>Product access state before failure, during retry, and after recovery.</li>
+          </ul>
+        </article>
+      </section>
+
+      <section class="card">
+        <h2>The no-OAuth evidence packet</h2>
+        <ul>
+          <li>One redacted invoice/subscription timeline.</li>
+          <li>Webhook logs for payment failed, payment paid, and subscription updated events.</li>
+          <li>Screenshot or export of the app user/subscription row at the same timestamps.</li>
+          <li>A short note describing when access pauses, graces, restores, or cancels.</li>
+          <li>No card data, API keys, customer personal data, or unrestricted Stripe login.</li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h2>When this fits</h2>
+        <div class="grid">
+          <ul>
+            <li>You use Stripe Billing or subscriptions.</li>
+            <li>You rely on webhooks to pause or restore access.</li>
+            <li>You have failed payments, trial conversions, or renewal failures.</li>
+          </ul>
+          <ul>
+            <li>Customers sometimes keep access after payment failure.</li>
+            <li>Recovered customers sometimes stay locked out.</li>
+            <li>Your dashboard cannot show invoice state and access state side by side.</li>
+          </ul>
+        </div>
+        <div class="button-row">
+          <a class="button primary" href="https://buy.stripe.com/6oUdRb0JL37VeqU7A0aR200">Buy the $19 audit</a>
+          <a class="button secondary" href="https://github.com/pavelviproperty-rgb/trial-to-paid-leak-audit/issues/new?template=request-audit.yml">Ask for fit check</a>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
