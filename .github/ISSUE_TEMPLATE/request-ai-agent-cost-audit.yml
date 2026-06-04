@@ -1,5 +1,5 @@
-name: Request the AI Agent Cost Leak Audit
-description: Submit redacted usage details for the $49 or $199 AI agent cost audit.
+name: Request the AI Agent Cost or Stripe AI Billing Audit
+description: Submit redacted usage, billing, and access-state details for the $49 or $199 audit.
 title: "[AI cost audit] "
 labels:
   - ai-cost-audit
@@ -12,7 +12,7 @@ body:
         Keep it safe:
         - do not include API keys, passwords, secrets, customer personal data, or raw private prompts;
         - redact account names and customer identifiers;
-        - share only screenshots, CSV summaries, pricing details, and short trace excerpts that are safe to discuss in a public GitHub issue.
+        - share only screenshots, CSV summaries, pricing details, billing/access rules, and short trace excerpts that are safe to discuss in a public GitHub issue.
   - type: dropdown
     id: purchase_status
     attributes:
@@ -41,24 +41,24 @@ body:
     id: pain
     attributes:
       label: What looks expensive or unclear?
-      description: Describe the cost, retry, context, tool-call, usage-cap, or pricing issue.
-      placeholder: We know monthly model spend, but we do not know cost per completed workflow or which users/runs go negative.
+      description: Describe the cost, retry, context, tool-call, usage-cap, billing-state, entitlement, or pricing issue.
+      placeholder: We know monthly model spend, but we do not know cost per completed workflow or whether billing, usage, and access state match.
     validations:
       required: true
   - type: textarea
     id: stack
     attributes:
       label: AI stack
-      description: Providers, models, framework, agent platform, workflow tool, and billing system if known.
-      placeholder: OpenAI + Anthropic, LangChain, n8n, Stripe, Postgres usage logs.
+      description: Providers, models, framework, agent platform, workflow tool, billing system, and entitlement or quota logic if known.
+      placeholder: OpenAI + Anthropic, LangChain, n8n, Stripe, Postgres usage logs, app entitlement table.
     validations:
       required: true
   - type: textarea
     id: evidence
     attributes:
       label: Safe evidence you can provide
-      description: Summarize screenshots, CSVs, top expensive traces, or 7-30 day usage exports. Do not paste secrets.
-      placeholder: 30-day provider usage CSV, top 20 expensive runs, pricing table, one redacted trace.
+      description: Summarize screenshots, CSVs, top expensive traces, Stripe settings, event names, or 7-30 day usage exports. Do not paste secrets.
+      placeholder: 30-day provider usage CSV, top 20 expensive runs, pricing table, one redacted trace, Stripe product/price screenshots, usage or entitlement rows.
     validations:
       required: true
   - type: checkboxes
@@ -72,6 +72,8 @@ body:
         - label: Reprice a plan that may be unprofitable.
         - label: Reduce retries, context, tool calls, or model cost.
         - label: Build a 48-hour instrumentation checklist.
+        - label: Check whether Stripe billing, usage, and product access state match.
+        - label: Find quota, credit, entitlement, or restore-access drift.
   - type: checkboxes
     id: confirmation
     attributes:

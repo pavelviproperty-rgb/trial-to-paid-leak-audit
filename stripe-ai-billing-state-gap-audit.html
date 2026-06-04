@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AI Agent Cost Leak Audit</title>
+    <title>Stripe AI Billing State Gap Audit</title>
     <meta
       name="description"
-      content="A 24-hour cost leak audit for LLM workflows, agent chains, and fixed-price AI SaaS plans."
+      content="A no-OAuth diagnostic for AI SaaS teams whose Stripe billing, usage tracking, entitlements, and product access state may be drifting apart."
     >
     <style>
       :root {
@@ -18,7 +18,6 @@
         --accent: #2d6a4f;
         --accent-dark: #153d2e;
         --accent-soft: #d8eadc;
-        --warn: #9a5a16;
         --shadow: 0 18px 50px rgba(18, 31, 20, 0.13);
       }
 
@@ -30,7 +29,7 @@
         margin: 0;
         font-family: "Avenir Next", "Segoe UI", sans-serif;
         background:
-          radial-gradient(circle at top right, rgba(45, 106, 79, 0.18), transparent 30rem),
+          radial-gradient(circle at top right, rgba(45, 106, 79, 0.2), transparent 30rem),
           linear-gradient(180deg, #f7f4e8 0%, var(--bg) 100%);
         color: var(--ink);
       }
@@ -55,7 +54,7 @@
 
       h1 {
         font-size: clamp(3rem, 7vw, 6rem);
-        max-width: 11ch;
+        max-width: 12ch;
       }
 
       h2 {
@@ -81,7 +80,7 @@
       }
 
       .lede {
-        max-width: 54rem;
+        max-width: 56rem;
         font-size: clamp(1.1rem, 1.9vw, 1.35rem);
         line-height: 1.55;
         color: var(--muted);
@@ -185,50 +184,48 @@
   </head>
   <body>
     <main>
-      <span class="eyebrow">AI SaaS margin diagnostic</span>
-      <h1>Your AI agent may be helpful and still unprofitable</h1>
+      <span class="eyebrow">No-OAuth Stripe AI billing diagnostic</span>
+      <h1>Stripe says one thing. Your AI product does another.</h1>
       <p class="lede">
-        Get a 24-hour cost leak audit for LLM workflows, agent chains, and
-        fixed-price AI SaaS plans. We look for the prompts, retries, tools,
-        context, memory, files, and heavy users quietly burning your margin.
+        A 24-hour audit for AI SaaS teams using Stripe subscriptions, usage
+        billing, credits, quotas, or entitlements and no longer trusting that
+        billing state, usage state, and product access state still match.
       </p>
       <div class="button-row">
         <a class="button primary" href="https://buy.stripe.com/00w9AVdwxeQDfuY9I8aR206">Buy the $49 audit</a>
         <a class="button tertiary" href="https://buy.stripe.com/8x26oJ0JL9wj4QkaMcaR207">Get the $199 action pack</a>
-        <a class="button tertiary" href="./stripe-ai-billing-state-gap-audit.html">Stripe AI billing gap</a>
-        <a class="button secondary" href="./ai-agent-cost-checklist.html">Use the free checklist</a>
         <a class="button secondary" href="https://github.com/pavelviproperty-rgb/trial-to-paid-leak-audit/issues/new?template=request-ai-agent-cost-audit.yml">Submit safe intake</a>
       </div>
 
       <section class="card callout">
-        <h2>The ugly number</h2>
+        <h2>The expensive gap</h2>
         <p class="note">
-          Most teams know their monthly AI bill. Fewer know cost per successful
-          user workflow. That is where flat pricing breaks: one agent loop or
-          one power user can erase the margin of ten normal users.
+          Stripe can meter, bill, retry, and emit events. That does not prove
+          your app stopped usage, restored access, enforced credits, versioned
+          plans, or explained margin by workflow at the right time.
         </p>
       </section>
 
       <section class="grid-3">
         <article class="card">
-          <h3>For AI SaaS</h3>
+          <h3>Billing truth</h3>
           <p class="fine">
-            Fixed monthly pricing, usage-based LLM costs, and unclear gross
-            margin by user or workflow.
+            Stripe subscription state, invoice state, retry state, product,
+            price, meter, and payment status.
           </p>
         </article>
         <article class="card">
-          <h3>For agent teams</h3>
+          <h3>Usage truth</h3>
           <p class="fine">
-            Multi-step chains with retries, tool calls, memory, long context,
-            file parsing, or browser actions.
+            Tokens, workflows, credits, seats, runs, retries, tool calls,
+            abandoned runs, and customer-specific limits.
           </p>
         </article>
         <article class="card">
-          <h3>For automation agencies</h3>
+          <h3>Product truth</h3>
           <p class="fine">
-            Client workflows where one bad prompt or runaway retry loop can
-            turn a profitable retainer into a loss.
+            What the customer can actually access, when quota is cut off, and
+            whether the app state changed after billing events.
           </p>
         </article>
       </section>
@@ -237,21 +234,21 @@
         <article class="card">
           <h2>What we check</h2>
           <ul>
-            <li>Cost per completed workflow, not only cost per token.</li>
-            <li>Top expensive prompts, traces, users, and task types.</li>
-            <li>Retries, tool-call loops, oversized context, and memory injection.</li>
-            <li>Model routing mismatch: expensive models on cheap tasks.</li>
-            <li>Flat-plan users who can go negative on unit economics.</li>
+            <li>Subscription status vs app access state.</li>
+            <li>Usage events vs quota or credit enforcement.</li>
+            <li>Failed payment, retry, and restore-access paths.</li>
+            <li>Plan, credit, entitlement, and overage edge cases.</li>
+            <li>What is measured today vs what is only assumed.</li>
           </ul>
         </article>
         <article class="card">
           <h2>What you get</h2>
           <ul>
-            <li>Executive verdict: profitable, risky, or unknown.</li>
-            <li>Top 3 cost leaks and the quickest fixes.</li>
-            <li>Pricing and usage-cap warnings.</li>
-            <li>Instrumentation checklist for the next 48 hours.</li>
-            <li>Action pack option with routing, caching, and guardrail checklist.</li>
+            <li>Short evidence report within 24 hours after usable intake.</li>
+            <li>Top 3 state-gap risks.</li>
+            <li>Quick wins before platform rewrites.</li>
+            <li>Events and tables to instrument in the next 48 hours.</li>
+            <li>Action-pack option only if the gap is real and bounded.</li>
           </ul>
         </article>
       </section>
@@ -261,12 +258,11 @@
           <h2>Quick audit</h2>
           <strong>$49</strong>
           <p class="fine">
-            Redacted usage screenshots, exports, or traces in. Short cost-leak
-            report out within 24 hours after usable intake.
+            Redacted Stripe screenshots, current rules, and sample rows in.
+            State-gap report out within 24 hours after usable intake.
           </p>
           <div class="button-row">
             <a class="button primary" href="https://buy.stripe.com/00w9AVdwxeQDfuY9I8aR206">Buy the $49 audit</a>
-            <a class="button secondary" href="./ai-agent-cost-checklist.html">Read the checklist</a>
             <a class="button secondary" href="https://github.com/pavelviproperty-rgb/trial-to-paid-leak-audit/issues/new?template=request-ai-agent-cost-audit.yml">Submit safe intake</a>
           </div>
         </article>
@@ -274,8 +270,8 @@
           <h2>Action pack</h2>
           <strong>$199</strong>
           <p class="fine">
-            Audit plus model-routing, caching, context-trimming, usage-cap, and
-            pricing guardrail checklist.
+            Audit plus event checklist, access-state map, quota guardrails,
+            usage ledger fields, and fix order for your team.
           </p>
           <div class="button-row">
             <a class="button tertiary" href="https://buy.stripe.com/8x26oJ0JL9wj4QkaMcaR207">Get the $199 action pack</a>
@@ -286,21 +282,22 @@
       <section class="card">
         <h2>Safe intake</h2>
         <p class="note">
-          After checkout, submit a redacted intake issue so the audit can start
-          without sharing secrets or waiting for account access.
+          No OAuth is required for the first pass. Start from redacted
+          screenshots, exports, rules, event names, and 2-3 customer lifecycle
+          examples where billing or access felt wrong.
         </p>
         <div class="grid">
           <ul>
-            <li>Last 7-30 days LLM/API usage screenshot or CSV.</li>
-            <li>Pricing plan and plan limits.</li>
-            <li>Example prompt, trace, or agent run.</li>
-            <li>High-cost run examples if known.</li>
+            <li>Stripe product, price, meter, retry, or subscription screenshots.</li>
+            <li>Quota, credit, seat, usage cap, or entitlement rules.</li>
+            <li>One sample usage event row or internal ledger row.</li>
+            <li>Webhook/event names or handler notes.</li>
           </ul>
           <ul>
             <li>No API keys.</li>
             <li>No passwords.</li>
-            <li>No customer personal data.</li>
-            <li>No unrestricted production access.</li>
+            <li>No card data.</li>
+            <li>No unrestricted Stripe or production access.</li>
           </ul>
         </div>
         <div class="button-row">
@@ -309,11 +306,11 @@
       </section>
 
       <section class="card">
-        <h2>Not generic AI consulting</h2>
+        <h2>Why this is narrow</h2>
         <p class="note">
-          This is intentionally narrow: cost, margin, and usage guardrails. If
-          the data does not show a measurable leak, the report says that instead
-          of inventing a roadmap.
+          This is not a promise to rebuild billing architecture. It is a paid
+          diagnostic to find whether billing truth, usage truth, and product
+          truth have drifted apart enough to leak margin or support time.
         </p>
       </section>
     </main>
