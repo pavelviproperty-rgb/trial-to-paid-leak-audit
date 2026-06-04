@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Successful Outcome Billing Gap Audit</title>
+    <meta
+      name="description"
+      content="A no-OAuth audit for AI apps that need billing tied to successful runs, hard budget stops, and cleaner usage-based pricing on Stripe."
+    >
+    <style>
+      :root {
+        --bg: #eceee4;
+        --paper: #fffdf6;
+        --ink: #162119;
+        --muted: #58665b;
+        --line: #c8d1c5;
+        --accent: #244f3d;
+        --accent-soft: #dce8dd;
+        --accent-warm: #e9dcc3;
+        --shadow: 0 18px 50px rgba(18, 31, 20, 0.13);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Avenir Next", "Segoe UI", sans-serif;
+        color: var(--ink);
+        background:
+          radial-gradient(circle at top left, rgba(36, 79, 61, 0.16), transparent 28rem),
+          radial-gradient(circle at bottom right, rgba(233, 220, 195, 0.28), transparent 22rem),
+          linear-gradient(180deg, #f7f4e9 0%, var(--bg) 100%);
+      }
+
+      main {
+        width: min(1040px, calc(100vw - 2rem));
+        margin: 0 auto;
+        padding: 2rem 0 4rem;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      h1,
+      h2,
+      h3 {
+        font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", serif;
+        line-height: 1;
+        margin: 0;
+      }
+
+      h1 {
+        font-size: clamp(3rem, 7vw, 5.6rem);
+        max-width: 11ch;
+      }
+
+      h2 {
+        font-size: clamp(1.8rem, 4vw, 3rem);
+        margin-bottom: 0.8rem;
+      }
+
+      h3 {
+        font-size: 1.25rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .eyebrow {
+        display: inline-block;
+        padding: 0.45rem 0.8rem;
+        border-radius: 999px;
+        background: rgba(255, 253, 246, 0.88);
+        border: 1px solid rgba(22, 33, 25, 0.08);
+        color: var(--muted);
+        font-size: 0.88rem;
+        letter-spacing: 0.02em;
+        margin-bottom: 1rem;
+      }
+
+      .lede,
+      .note,
+      .fine {
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      .lede {
+        max-width: 56rem;
+        font-size: clamp(1.08rem, 1.95vw, 1.34rem);
+        margin: 1rem 0 1.4rem;
+      }
+
+      .button-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.8rem;
+        margin-top: 1.2rem;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 3rem;
+        padding: 0.8rem 1.1rem;
+        border-radius: 999px;
+        border: 1px solid var(--ink);
+        text-decoration: none;
+        font-weight: 800;
+      }
+
+      .primary {
+        background: var(--ink);
+        color: var(--paper);
+      }
+
+      .secondary {
+        background: transparent;
+      }
+
+      .tertiary {
+        background: var(--accent-soft);
+        border-color: rgba(36, 79, 61, 0.35);
+        color: var(--accent);
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1rem;
+      }
+
+      .grid-3 {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1rem;
+      }
+
+      .card {
+        background: rgba(255, 253, 246, 0.94);
+        border: 1px solid rgba(22, 33, 25, 0.08);
+        border-radius: 28px;
+        padding: 1.35rem;
+        box-shadow: var(--shadow);
+        margin-top: 1rem;
+      }
+
+      .callout {
+        background: var(--accent-warm);
+        border-color: rgba(36, 79, 61, 0.18);
+      }
+
+      ul {
+        margin: 0;
+        padding-left: 1.2rem;
+      }
+
+      li + li {
+        margin-top: 0.65rem;
+      }
+
+      code {
+        background: rgba(22, 33, 25, 0.08);
+        border-radius: 0.35rem;
+        padding: 0.1rem 0.25rem;
+      }
+
+      @media (max-width: 760px) {
+        .grid,
+        .grid-3 {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <span class="eyebrow">Successful-outcome billing audit for AI apps</span>
+      <h1>Do not bill AI usage before the customer gets a successful outcome</h1>
+      <p class="lede">
+        This is for AI apps and AI SaaS teams who discovered that
+        usage-based billing gets messy fast once retries, partial completions,
+        failed runs, credit limits, and restore-access logic all touch the same
+        customer lifecycle.
+      </p>
+      <div class="button-row">
+        <a class="button primary" href="https://buy.stripe.com/00w9AVdwxeQDfuY9I8aR206">Buy the $49 audit</a>
+        <a class="button tertiary" href="https://buy.stripe.com/8x26oJ0JL9wj4QkaMcaR207">Get the $199 action pack</a>
+        <a class="button secondary" href="./workflow-cost-checklist.html">Use the free workflow-cost checklist</a>
+        <a class="button secondary" href="./ai-agent-cost-sample-report.html">See sample report</a>
+        <a class="button secondary" href="https://github.com/pavelviproperty-rgb/trial-to-paid-leak-audit/issues/new?template=request-ai-agent-cost-audit.yml">Ask for fit check</a>
+      </div>
+
+      <section class="card callout">
+        <h2>The expensive mismatch</h2>
+        <p class="note">
+          Stripe can ingest meter events and generate invoices. Your app still
+          needs its own rule for when a run becomes billable, when it should be
+          blocked for budget, and what happens after retries, partial
+          completions, or human rescue.
+        </p>
+      </section>
+
+      <section class="grid-3">
+        <article class="card">
+          <h3>Billable event</h3>
+          <p class="fine">
+            What was recorded for invoicing.
+          </p>
+        </article>
+        <article class="card">
+          <h3>Successful outcome</h3>
+          <p class="fine">
+            What the customer actually received and would accept as complete.
+          </p>
+        </article>
+        <article class="card">
+          <h3>Budget truth</h3>
+          <p class="fine">
+            What should have hard-stopped before margin leaked.
+          </p>
+        </article>
+      </section>
+
+      <section class="grid">
+        <article class="card">
+          <h2>What this audit checks</h2>
+          <ul>
+            <li>Whether usage is counted before a workflow reaches a successful end state.</li>
+            <li>Whether failed or retried runs are leaking cost without clean customer value.</li>
+            <li>Whether hard budget caps can block the workflow instead of only sending alerts.</li>
+            <li>Whether usage, quota, and access rules drift across plan versions.</li>
+            <li>Whether one customer timeline can be explained from event to invoice to access decision.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h2>What you get</h2>
+          <ul>
+            <li>Short evidence report within 24 hours after usable intake.</li>
+            <li>Top 3 billing-vs-outcome mismatches.</li>
+            <li>One instrumentation map for the next 48 hours.</li>
+            <li>One safe list of hard-stop, grace, and restore-access rules to implement first.</li>
+            <li>Action-pack option only if the gap is real and bounded.</li>
+          </ul>
+        </article>
+      </section>
+
+      <section class="grid">
+        <article class="card">
+          <h2>Best fit</h2>
+          <ul>
+            <li>AI apps using Stripe for usage-based billing or overages.</li>
+            <li>Teams that already have retries, credits, bundles, or monthly allowances.</li>
+            <li>Founders who know token cost but not cost per completed workflow.</li>
+            <li>Operators who need to stop over-serving unpaid or out-of-budget users.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h2>Safe intake</h2>
+          <ul>
+            <li>Redacted screenshots of prices, meters, quotas, or budget rules.</li>
+            <li>One example customer lifecycle with retries or partial completion.</li>
+            <li>One export or screenshot showing usage, invoices, or quota state.</li>
+            <li>No card data, passwords, API keys, or unrestricted account login.</li>
+          </ul>
+        </article>
+      </section>
+
+      <section class="card">
+        <h2>What this is not</h2>
+        <p class="note">
+          This is not a promise to replace your billing stack. It is a fast
+          no-OAuth audit to show whether the leak is pricing design, billing
+          instrumentation, workflow retries, access-state drift, or all four.
+        </p>
+      </section>
+    </main>
+  </body>
+</html>
