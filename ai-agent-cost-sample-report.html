@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sample Outcome Cost Audit Report</title>
+    <meta
+      name="description"
+      content="A fictional sample of the Outcome Cost & Budget Guardrail Audit for AI SaaS and agent teams."
+    >
+    <style>
+      :root {
+        --bg: #e9efe7;
+        --paper: #fffdf5;
+        --ink: #182019;
+        --muted: #556158;
+        --accent-soft: #d8eadc;
+        --shadow: 0 18px 50px rgba(18, 31, 20, 0.13);
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        font-family: "Avenir Next", "Segoe UI", sans-serif;
+        background:
+          radial-gradient(circle at top right, rgba(45, 106, 79, 0.18), transparent 30rem),
+          linear-gradient(180deg, #f7f4e8 0%, var(--bg) 100%);
+        color: var(--ink);
+      }
+
+      main {
+        width: min(1040px, calc(100vw - 2rem));
+        margin: 0 auto;
+        padding: 2rem 0 4rem;
+      }
+
+      h1, h2, h3 {
+        font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", serif;
+        line-height: 1;
+        margin: 0;
+      }
+
+      h1 { font-size: clamp(2.8rem, 6vw, 5.6rem); max-width: 12ch; }
+      h2 { font-size: clamp(1.7rem, 4vw, 2.8rem); margin-bottom: 0.8rem; }
+      h3 { font-size: 1.2rem; margin-bottom: 0.5rem; }
+
+      .eyebrow {
+        display: inline-block;
+        padding: 0.45rem 0.8rem;
+        border-radius: 999px;
+        background: rgba(255, 253, 245, 0.86);
+        color: var(--muted);
+        font-size: 0.88rem;
+        margin-bottom: 1rem;
+      }
+
+      .lede, .note, .fine { color: var(--muted); line-height: 1.6; }
+      .lede { max-width: 54rem; font-size: 1.1rem; }
+
+      .grid, .grid-3 {
+        display: grid;
+        gap: 1rem;
+      }
+
+      .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+      .card {
+        background: rgba(255, 253, 245, 0.94);
+        border: 1px solid rgba(24, 32, 25, 0.08);
+        border-radius: 28px;
+        padding: 1.35rem;
+        box-shadow: var(--shadow);
+        margin-top: 1rem;
+      }
+
+      .callout {
+        background: var(--accent-soft);
+        border-color: rgba(45, 106, 79, 0.35);
+      }
+
+      .button-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.8rem;
+        margin-top: 1.2rem;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 3rem;
+        padding: 0.8rem 1.1rem;
+        border-radius: 999px;
+        border: 1px solid var(--ink);
+        text-decoration: none;
+        color: inherit;
+        font-weight: 800;
+      }
+
+      .primary { background: var(--ink); color: var(--paper); }
+      .secondary { background: transparent; }
+
+      ul { margin: 0; padding-left: 1.2rem; }
+      li + li { margin-top: 0.65rem; }
+
+      @media (max-width: 760px) {
+        .grid, .grid-3 { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <span class="eyebrow">Fictional sample report</span>
+      <h1>See what the paid AI workflow margin audit looks like</h1>
+      <p class="lede">
+        This sample uses fictional numbers. The real audit uses your redacted
+        screenshots, exports, and workflow notes to show where margin is
+        leaking, where guardrails should hard-stop, and what to fix first.
+      </p>
+      <div class="button-row">
+        <a class="button primary" href="https://buy.stripe.com/00w9AVdwxeQDfuY9I8aR206">Buy the $49 audit</a>
+        <a class="button secondary" href="./ai-agent-cost-leak-audit.html">Read the full offer</a>
+        <a class="button secondary" href="https://github.com/pavelviproperty-rgb/trial-to-paid-leak-audit/issues/new?template=request-ai-agent-cost-audit.yml">Submit safe intake</a>
+      </div>
+
+      <section class="card callout">
+        <h2>Executive diagnosis</h2>
+        <p class="note">
+          The business does not have a generic "AI cost problem." It has one
+          specific workflow margin problem. Lead enrichment looks healthy. PDF
+          extraction is noisy but acceptable. Long-form account research is
+          spending too much on retries and context growth relative to what the
+          plan price can support.
+        </p>
+      </section>
+
+      <section class="grid-3">
+        <article class="card">
+          <h3>Workflow A</h3>
+          <div class="fine"><strong>Lead enrichment</strong></div>
+          <ul>
+            <li>Cost per completed workflow: <strong>$0.18</strong></li>
+            <li>Successful completion rate: <strong>94%</strong></li>
+            <li>Status: healthy</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Workflow B</h3>
+          <div class="fine"><strong>PDF extraction</strong></div>
+          <ul>
+            <li>Cost per completed workflow: <strong>$1.12</strong></li>
+            <li>Retry-heavy cases: <strong>17%</strong></li>
+            <li>Status: watch closely</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Workflow C</h3>
+          <div class="fine"><strong>Account research agent</strong></div>
+          <ul>
+            <li>Cost per completed workflow: <strong>$6.40</strong></li>
+            <li>Hard budget cap today: <strong>none</strong></li>
+            <li>Status: underwater</li>
+          </ul>
+        </article>
+      </section>
+
+      <section class="grid">
+        <article class="card">
+          <h2>Facts used</h2>
+          <ul>
+            <li>14 days of redacted usage exports by workflow.</li>
+            <li>3 expensive traces with retries and tool-call fan-out.</li>
+            <li>Plan pricing, included limits, and overage policy.</li>
+            <li>Current stop conditions and revoke behavior after overages.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h2>Unknowns</h2>
+          <ul>
+            <li>Whether failures were caused by provider latency or prompt design.</li>
+            <li>Whether gross margin differs by customer segment.</li>
+            <li>Whether access should hard-stop or reconcile later after billing catch-up.</li>
+          </ul>
+        </article>
+      </section>
+
+      <section class="card">
+        <h2>Top 3 leaks</h2>
+        <ul>
+          <li>Retries after bad tool results keep spending after the useful outcome is already lost.</li>
+          <li>Premium model default is used on low-value formatting and extraction steps.</li>
+          <li>Over-budget accounts keep access long enough to consume extra AI cost before billing state reconciles.</li>
+        </ul>
+      </section>
+
+      <section class="grid">
+        <article class="card">
+          <h2>Guardrail decisions</h2>
+          <ul>
+            <li><strong>Hard-stop now:</strong> account research workflow above $4.00 per run.</li>
+            <li><strong>Soft warn:</strong> PDF extraction when retries exceed 2 attempts.</li>
+            <li><strong>Reconcile later:</strong> billing-state mismatch under 2 hours, if product access is not granted.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h2>First 3 fixes</h2>
+          <ul>
+            <li>Cap account research at 2 model passes before fallback.</li>
+            <li>Route low-value extraction to the cheaper model by default.</li>
+            <li>Log one row per completed workflow with cost, retries, result quality, and billing state.</li>
+          </ul>
+        </article>
+      </section>
+
+      <section class="card">
+        <h2>What the $199 action pack adds</h2>
+        <ul>
+          <li>Workflow ledger schema for cost, retries, and business outcome on one row.</li>
+          <li>Model routing and context-trimming checklist.</li>
+          <li>Hard-cap vs soft-cap rules by workflow class.</li>
+          <li>Billing, entitlement, and revoke-state reconciliation checklist.</li>
+        </ul>
+        <div class="button-row">
+          <a class="button primary" href="https://buy.stripe.com/8x26oJ0JL9wj4QkaMcaR207">Get the $199 action pack</a>
+          <a class="button secondary" href="https://buy.stripe.com/00w9AVdwxeQDfuY9I8aR206">Start with the $49 audit</a>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

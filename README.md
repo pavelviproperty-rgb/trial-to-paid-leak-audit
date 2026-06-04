@@ -26,3 +26,14 @@ checkout, with the `$49` action pack available as the first upsell.
 
 Revenue only counts when Stripe shows a paid checkout. A published page,
 comments, or prepared audit packet are not revenue.
+
+## AI cost variants
+
+Additional local-ready variants now exist for the same AI-cost offer family:
+
+- AI cost offer: https://pavelviproperty-rgb.github.io/trial-to-paid-leak-audit/ai-agent-cost-leak-audit.html
+- AI cost checklist: https://pavelviproperty-rgb.github.io/trial-to-paid-leak-audit/ai-agent-cost-checklist.html
+- Stripe AI billing gap: https://pavelviproperty-rgb.github.io/trial-to-paid-leak-audit/stripe-ai-billing-state-gap-audit.html
+- Outcome-cost audit: https://pavelviproperty-rgb.github.io/trial-to-paid-leak-audit/outcome-cost-budget-guardrail-audit.html
+- Workflow-cost checklist: https://pavelviproperty-rgb.github.io/trial-to-paid-leak-audit/workflow-cost-checklist.html
+- AI cost sample report: https://pavelviproperty-rgb.github.io/trial-to-paid-leak-audit/ai-agent-cost-sample-report.html

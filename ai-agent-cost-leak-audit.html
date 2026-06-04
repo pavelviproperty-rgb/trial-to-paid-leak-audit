@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AI Agent Cost Leak Audit</title>
+    <title>Outcome Cost & Budget Guardrail Audit</title>
     <meta
       name="description"
-      content="A 24-hour cost leak audit for LLM workflows, agent chains, and fixed-price AI SaaS plans."
+      content="A no-OAuth audit for AI SaaS and agent teams that need cost per completed workflow, budget guardrails, and billing-state clarity."
     >
     <style>
       :root {
@@ -185,27 +185,31 @@
   </head>
   <body>
     <main>
-      <span class="eyebrow">AI SaaS margin diagnostic</span>
-      <h1>Your AI agent may be helpful and still unprofitable</h1>
+      <span class="eyebrow">No-OAuth AI workflow margin diagnostic</span>
+      <h1>Find which AI workflows are quietly losing money before another billing cycle closes</h1>
       <p class="lede">
-        Get a 24-hour cost leak audit for LLM workflows, agent chains, and
-        fixed-price AI SaaS plans. We look for the prompts, retries, tools,
-        context, memory, files, and heavy users quietly burning your margin.
+        This is for AI SaaS and agent teams with rising token spend, unclear
+        cost per completed workflow, weak budget guardrails, or drift between
+        usage, billing, and product access. First pass uses redacted exports,
+        screenshots, and notes, not API keys or production access.
       </p>
       <div class="button-row">
         <a class="button primary" href="https://buy.stripe.com/00w9AVdwxeQDfuY9I8aR206">Buy the $49 audit</a>
         <a class="button tertiary" href="https://buy.stripe.com/8x26oJ0JL9wj4QkaMcaR207">Get the $199 action pack</a>
         <a class="button tertiary" href="./stripe-ai-billing-state-gap-audit.html">Stripe AI billing gap</a>
+        <a class="button secondary" href="./outcome-cost-budget-guardrail-audit.html">Workflow-cost version</a>
         <a class="button secondary" href="./ai-agent-cost-checklist.html">Use the free checklist</a>
+        <a class="button secondary" href="./ai-agent-cost-sample-report.html">See a sample report</a>
         <a class="button secondary" href="https://github.com/pavelviproperty-rgb/trial-to-paid-leak-audit/issues/new?template=request-ai-agent-cost-audit.yml">Submit safe intake</a>
       </div>
 
       <section class="card callout">
         <h2>The ugly number</h2>
         <p class="note">
-          Most teams know their monthly AI bill. Fewer know cost per successful
-          user workflow. That is where flat pricing breaks: one agent loop or
-          one power user can erase the margin of ten normal users.
+          Most teams know monthly AI spend. Fewer know cost per successful
+          workflow, retry-heavy workflow, or workflow that never should have
+          kept running. That is where flat pricing breaks: one loop, one power
+          user, or one revoke bug can erase the margin of many normal users.
         </p>
       </section>
 
@@ -213,22 +217,22 @@
         <article class="card">
           <h3>For AI SaaS</h3>
           <p class="fine">
-            Fixed monthly pricing, usage-based LLM costs, and unclear gross
-            margin by user or workflow.
+            Fixed or hybrid pricing, usage-based LLM costs, and unclear margin
+            by user, workflow, or plan.
           </p>
         </article>
         <article class="card">
           <h3>For agent teams</h3>
           <p class="fine">
             Multi-step chains with retries, tool calls, memory, long context,
-            file parsing, or browser actions.
+            file parsing, browser actions, or fragile stop conditions.
           </p>
         </article>
         <article class="card">
-          <h3>For automation agencies</h3>
+          <h3>For automation operators</h3>
           <p class="fine">
-            Client workflows where one bad prompt or runaway retry loop can
-            turn a profitable retainer into a loss.
+            Client or internal workflows where one bad prompt, retry loop, or
+            stale entitlement state can turn a profitable contract into a loss.
           </p>
         </article>
       </section>
@@ -238,20 +242,43 @@
           <h2>What we check</h2>
           <ul>
             <li>Cost per completed workflow, not only cost per token.</li>
-            <li>Top expensive prompts, traces, users, and task types.</li>
+            <li>Top expensive prompts, traces, users, workflows, and task types.</li>
             <li>Retries, tool-call loops, oversized context, and memory injection.</li>
             <li>Model routing mismatch: expensive models on cheap tasks.</li>
-            <li>Flat-plan users who can go negative on unit economics.</li>
+            <li>Hard-stop vs soft-warning guardrails.</li>
+            <li>Billing, entitlement, and revoke-state drift where relevant.</li>
           </ul>
         </article>
         <article class="card">
           <h2>What you get</h2>
           <ul>
-            <li>Executive verdict: profitable, risky, or unknown.</li>
-            <li>Top 3 cost leaks and the quickest fixes.</li>
-            <li>Pricing and usage-cap warnings.</li>
+            <li>Executive verdict: healthy, underwater, or unknown.</li>
+            <li>Top 3 workflow leaks and the fastest fixes.</li>
+            <li>Budget-guardrail decision table: hard stop, soft warn, reconcile later.</li>
+            <li>Pricing, cap, and margin warnings.</li>
             <li>Instrumentation checklist for the next 48 hours.</li>
-            <li>Action pack option with routing, caching, and guardrail checklist.</li>
+          </ul>
+        </article>
+      </section>
+
+      <section class="grid">
+        <article class="card">
+          <h2>What this catches fast</h2>
+          <ul>
+            <li>A workflow that completes rarely but spends heavily on retries.</li>
+            <li>Cheap-tier users routed through premium models by default.</li>
+            <li>Tasks that look profitable in revenue but fail on gross margin.</li>
+            <li>Soft budgets that warn but do not actually stop overnight burn.</li>
+            <li>Usage or access state that drifts after budget limits are hit.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h2>Why this is not another AI cost dashboard</h2>
+          <ul>
+            <li>This starts from outcome cost, not raw token totals.</li>
+            <li>This gives a short decision report, not a vague observability setup.</li>
+            <li>This works from redacted evidence before any integration work.</li>
+            <li>If the data does not show a leak, the report says that directly.</li>
           </ul>
         </article>
       </section>
@@ -261,12 +288,13 @@
           <h2>Quick audit</h2>
           <strong>$49</strong>
           <p class="fine">
-            Redacted usage screenshots, exports, or traces in. Short cost-leak
-            report out within 24 hours after usable intake.
+            Redacted screenshots, exports, or traces in. Short workflow-margin
+            and guardrail report out within 24-48 hours after usable intake.
           </p>
           <div class="button-row">
             <a class="button primary" href="https://buy.stripe.com/00w9AVdwxeQDfuY9I8aR206">Buy the $49 audit</a>
             <a class="button secondary" href="./ai-agent-cost-checklist.html">Read the checklist</a>
+            <a class="button secondary" href="./ai-agent-cost-sample-report.html">See sample report</a>
             <a class="button secondary" href="https://github.com/pavelviproperty-rgb/trial-to-paid-leak-audit/issues/new?template=request-ai-agent-cost-audit.yml">Submit safe intake</a>
           </div>
         </article>
@@ -274,8 +302,8 @@
           <h2>Action pack</h2>
           <strong>$199</strong>
           <p class="fine">
-            Audit plus model-routing, caching, context-trimming, usage-cap, and
-            pricing guardrail checklist.
+            Audit plus workflow ledger schema, routing, caching, guardrail map,
+            and billing/entitlement reconciliation checklist.
           </p>
           <div class="button-row">
             <a class="button tertiary" href="https://buy.stripe.com/8x26oJ0JL9wj4QkaMcaR207">Get the $199 action pack</a>
@@ -291,10 +319,10 @@
         </p>
         <div class="grid">
           <ul>
-            <li>Last 7-30 days LLM/API usage screenshot or CSV.</li>
-            <li>Pricing plan and plan limits.</li>
-            <li>Example prompt, trace, or agent run.</li>
-            <li>High-cost run examples if known.</li>
+            <li>Last 7-30 days usage screenshot or CSV.</li>
+            <li>Top 3 paid workflows or job types.</li>
+            <li>Pricing model, included limits, and budget rules.</li>
+            <li>Example expensive trace, failed run, or retry loop.</li>
           </ul>
           <ul>
             <li>No API keys.</li>
@@ -308,14 +336,6 @@
         </div>
       </section>
 
-      <section class="card">
-        <h2>Not generic AI consulting</h2>
-        <p class="note">
-          This is intentionally narrow: cost, margin, and usage guardrails. If
-          the data does not show a measurable leak, the report says that instead
-          of inventing a roadmap.
-        </p>
-      </section>
     </main>
   </body>
 </html>

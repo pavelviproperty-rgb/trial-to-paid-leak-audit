@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Outcome Cost &amp; Budget Guardrail Audit</title>
+    <meta
+      name="description"
+      content="A 24-hour audit for AI SaaS teams that need cost per completed workflow, hard budget caps, and safer unit economics."
+    >
+    <style>
+      :root {
+        --bg: #eceee4;
+        --paper: #fffdf6;
+        --ink: #162119;
+        --muted: #58665b;
+        --line: #c8d1c5;
+        --accent: #244f3d;
+        --accent-soft: #dce8dd;
+        --accent-warm: #e9dcc3;
+        --shadow: 0 18px 50px rgba(18, 31, 20, 0.13);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Avenir Next", "Segoe UI", sans-serif;
+        color: var(--ink);
+        background:
+          radial-gradient(circle at top left, rgba(36, 79, 61, 0.16), transparent 28rem),
+          radial-gradient(circle at bottom right, rgba(233, 220, 195, 0.28), transparent 22rem),
+          linear-gradient(180deg, #f7f4e9 0%, var(--bg) 100%);
+      }
+
+      main {
+        width: min(1040px, calc(100vw - 2rem));
+        margin: 0 auto;
+        padding: 2rem 0 4rem;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      h1,
+      h2,
+      h3 {
+        font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", serif;
+        line-height: 1;
+        margin: 0;
+      }
+
+      h1 {
+        font-size: clamp(3rem, 7vw, 5.8rem);
+        max-width: 10ch;
+      }
+
+      h2 {
+        font-size: clamp(1.8rem, 4vw, 3rem);
+        margin-bottom: 0.8rem;
+      }
+
+      h3 {
+        font-size: 1.25rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .eyebrow {
+        display: inline-block;
+        padding: 0.45rem 0.8rem;
+        border-radius: 999px;
+        background: rgba(255, 253, 246, 0.88);
+        border: 1px solid rgba(22, 33, 25, 0.08);
+        color: var(--muted);
+        font-size: 0.88rem;
+        letter-spacing: 0.02em;
+        margin-bottom: 1rem;
+      }
+
+      .lede,
+      .fine,
+      .note {
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      .lede {
+        max-width: 56rem;
+        font-size: clamp(1.08rem, 1.95vw, 1.34rem);
+        margin: 1rem 0 1.4rem;
+      }
+
+      .button-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.8rem;
+        margin-top: 1.2rem;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 3rem;
+        padding: 0.8rem 1.1rem;
+        border-radius: 999px;
+        border: 1px solid var(--ink);
+        text-decoration: none;
+        font-weight: 800;
+      }
+
+      .primary {
+        background: var(--ink);
+        color: var(--paper);
+      }
+
+      .secondary {
+        background: transparent;
+      }
+
+      .tertiary {
+        background: var(--accent-soft);
+        border-color: rgba(36, 79, 61, 0.35);
+        color: var(--accent);
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1rem;
+      }
+
+      .grid-3 {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1rem;
+      }
+
+      .card {
+        background: rgba(255, 253, 246, 0.94);
+        border: 1px solid rgba(22, 33, 25, 0.08);
+        border-radius: 28px;
+        padding: 1.35rem;
+        box-shadow: var(--shadow);
+        margin-top: 1rem;
+      }
+
+      .callout {
+        background: var(--accent-warm);
+        border-color: rgba(36, 79, 61, 0.18);
+      }
+
+      .price strong {
+        display: block;
+        font-size: 3rem;
+        margin: 0.3rem 0;
+      }
+
+      ul {
+        margin: 0;
+        padding-left: 1.2rem;
+      }
+
+      li + li {
+        margin-top: 0.65rem;
+      }
+
+      code {
+        background: rgba(22, 33, 25, 0.08);
+        border-radius: 0.35rem;
+        padding: 0.1rem 0.25rem;
+      }
+
+      @media (max-width: 760px) {
+        .grid,
+        .grid-3 {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <span class="eyebrow">Outcome-cost audit for AI SaaS</span>
+      <h1>Track cost per successful workflow before one bad loop kills your margin</h1>
+      <p class="lede">
+        This is for AI SaaS teams, agent builders, and automation operators who
+        already know their monthly model bill but still cannot answer the ugly
+        question: what does one completed customer outcome actually cost, and
+        where does it blow past safe budget caps?
+      </p>
+      <div class="button-row">
+        <a class="button primary" href="https://buy.stripe.com/00w9AVdwxeQDfuY9I8aR206">Buy the $49 audit</a>
+        <a class="button tertiary" href="https://buy.stripe.com/8x26oJ0JL9wj4QkaMcaR207">Get the $199 action pack</a>
+        <a class="button secondary" href="./workflow-cost-checklist.html">Use the free workflow-cost checklist</a>
+        <a class="button secondary" href="https://github.com/pavelviproperty-rgb/trial-to-paid-leak-audit/issues/new?template=request-ai-agent-cost-audit.yml">Submit safe intake</a>
+      </div>
+
+      <section class="card callout">
+        <h2>The real leak</h2>
+        <p class="note">
+          Flat pricing usually breaks on the outcome level, not the token line.
+          One retry-heavy workflow, one oversized context, or one power user on
+          a generous plan can erase the margin of ten normal accounts.
+        </p>
+      </section>
+
+      <section class="grid-3">
+        <article class="card">
+          <h3>Exact buyer pain</h3>
+          <p class="fine">
+            You can see provider spend, but not cost per completed workflow or
+            which plan, step, or user is actually going negative.
+          </p>
+        </article>
+        <article class="card">
+          <h3>Why now</h3>
+          <p class="fine">
+            Operators are now asking publicly about hard per-task caps,
+            runaway loops, and workflow-level cost accounting instead of raw
+            token totals.
+          </p>
+        </article>
+        <article class="card">
+          <h3>Trust wedge</h3>
+          <p class="fine">
+            The first pass starts from redacted screenshots, CSV exports,
+            traces, and plan rules. No API keys or production account access.
+          </p>
+        </article>
+      </section>
+
+      <section class="grid">
+        <article class="card">
+          <h2>What we audit</h2>
+          <ul>
+            <li>Cost per completed workflow, not only cost per request.</li>
+            <li>Failed, retried, and human-rescued runs.</li>
+            <li>Model-routing mistakes and oversized context.</li>
+            <li>Tool-call loops, file reprocessing, and memory drag.</li>
+            <li>Plans with no hard guardrail against abusive or heavy usage.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h2>What you get</h2>
+          <ul>
+            <li>Executive verdict: healthy, risky, or already margin-negative.</li>
+            <li>Top 3 workflow leaks and the fastest fixes.</li>
+            <li>One-page budget-guardrail recommendation.</li>
+            <li>What to instrument in the next 48 hours.</li>
+            <li>Action-pack option if the leak is real and fixable.</li>
+          </ul>
+        </article>
+      </section>
+
+      <section class="grid">
+        <article class="card">
+          <h2>What a risky setup looks like</h2>
+          <ul>
+            <li>Soft budgets that do not stop runaway loops.</li>
+            <li>Provider usage logs with no business-outcome mapping.</li>
+            <li>One flat monthly plan serving tiny users and giant users equally.</li>
+            <li>No separate count of successful runs vs failed or retried runs.</li>
+            <li>No ugly-month scenario for 2x usage or retry-heavy traffic.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h2>Proof and timing</h2>
+          <ul>
+            <li><a href="https://platform.openai.com/docs/guides/prompt-caching">OpenAI prompt caching</a> exists because input structure changes cost materially.</li>
+            <li><a href="https://openai.com/api/pricing/">OpenAI pricing</a> still varies by model and cache state.</li>
+            <li><a href="https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching">Anthropic prompt caching</a> shows separate write/read economics.</li>
+            <li><a href="https://www.reddit.com/r/SaaS/comments/1ttmmdc/for_ai_saas_founders_do_you_track_cost_per/">Fresh operator pain</a> is now about cost per completed workflow.</li>
+            <li><a href="https://www.reddit.com/r/AI_Agents/comments/1ts6ctg/how_are_you_handling_budget_limits_for_ai_agents/">Fresh production pain</a> is now about hard task caps and runaway agents.</li>
+          </ul>
+        </article>
+      </section>
+
+      <section class="grid">
+        <article class="card price">
+          <h2>Quick audit</h2>
+          <strong>$49</strong>
+          <p class="fine">
+            Redacted usage exports or screenshots in. Short workflow-cost and
+            budget-guardrail report out within 24 hours after usable intake.
+          </p>
+          <div class="button-row">
+            <a class="button primary" href="https://buy.stripe.com/00w9AVdwxeQDfuY9I8aR206">Buy the $49 audit</a>
+            <a class="button secondary" href="./workflow-cost-checklist.html">Read the checklist</a>
+          </div>
+        </article>
+        <article class="card price">
+          <h2>Action pack</h2>
+          <strong>$199</strong>
+          <p class="fine">
+            Audit plus guardrail sequence: routing, context trim, retry rules,
+            per-task ceilings, and plan-limit recommendations.
+          </p>
+          <div class="button-row">
+            <a class="button tertiary" href="https://buy.stripe.com/8x26oJ0JL9wj4QkaMcaR207">Get the $199 action pack</a>
+          </div>
+        </article>
+      </section>
+
+      <section class="card">
+        <h2>Safe intake</h2>
+        <p class="note">
+          After checkout, submit a redacted intake issue so the audit can start
+          without secrets or production access.
+        </p>
+        <div class="grid">
+          <ul>
+            <li>7-30 days of usage screenshots or CSV exports.</li>
+            <li>Pricing plans and included limits.</li>
+            <li>One expensive workflow trace or example run.</li>
+            <li>Any current cap, retry, or routing rules.</li>
+          </ul>
+          <ul>
+            <li>No API keys.</li>
+            <li>No passwords.</li>
+            <li>No customer personal data.</li>
+            <li>No unrestricted production access.</li>
+          </ul>
+        </div>
+        <div class="button-row">
+          <a class="button tertiary" href="https://github.com/pavelviproperty-rgb/trial-to-paid-leak-audit/issues/new?template=request-ai-agent-cost-audit.yml">Open the safe intake form</a>
+          <a class="button secondary" href="./ai-agent-cost-leak-audit.html">See the broader AI-cost offer</a>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

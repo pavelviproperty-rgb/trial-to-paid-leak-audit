@@ -3,19 +3,18 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Free AI Workflow Margin Checklist</title>
+    <title>Workflow Cost &amp; Budget Guardrail Checklist</title>
     <meta
       name="description"
-      content="A no-login checklist for finding workflow-margin leaks, retry waste, budget guardrail gaps, and billing-state drift in AI products."
+      content="A free checklist for AI SaaS teams that need cost per completed workflow and hard budget guardrails."
     >
     <style>
       :root {
-        --bg: #e9efe7;
-        --paper: #fffdf5;
-        --ink: #182019;
-        --muted: #556158;
-        --accent: #2d6a4f;
-        --accent-soft: #d8eadc;
+        --bg: #eceee4;
+        --paper: #fffdf6;
+        --ink: #162119;
+        --muted: #58665b;
+        --accent-soft: #dce8dd;
         --shadow: 0 18px 50px rgba(18, 31, 20, 0.13);
       }
 
@@ -27,8 +26,8 @@
         margin: 0;
         font-family: "Avenir Next", "Segoe UI", sans-serif;
         background:
-          radial-gradient(circle at top right, rgba(45, 106, 79, 0.18), transparent 28rem),
-          linear-gradient(180deg, #f7f4e8 0%, var(--bg) 100%);
+          radial-gradient(circle at top left, rgba(36, 79, 61, 0.16), transparent 28rem),
+          linear-gradient(180deg, #f7f4e9 0%, var(--bg) 100%);
         color: var(--ink);
       }
 
@@ -39,15 +38,14 @@
       }
 
       h1,
-      h2,
-      h3 {
+      h2 {
         font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", serif;
         line-height: 1;
         margin: 0;
       }
 
       h1 {
-        font-size: clamp(2.8rem, 7vw, 5.6rem);
+        font-size: clamp(2.8rem, 7vw, 5.5rem);
         max-width: 12ch;
       }
 
@@ -60,7 +58,7 @@
         display: inline-block;
         padding: 0.45rem 0.8rem;
         border-radius: 999px;
-        background: rgba(255, 253, 245, 0.86);
+        background: rgba(255, 253, 246, 0.88);
         color: var(--muted);
         font-size: 0.88rem;
         margin-bottom: 1rem;
@@ -75,8 +73,8 @@
       }
 
       .card {
-        background: rgba(255, 253, 245, 0.94);
-        border: 1px solid rgba(24, 32, 25, 0.08);
+        background: rgba(255, 253, 246, 0.94);
+        border: 1px solid rgba(22, 33, 25, 0.08);
         border-radius: 28px;
         padding: 1.35rem;
         box-shadow: var(--shadow);
@@ -116,7 +114,7 @@
 
       .soft {
         background: var(--accent-soft);
-        border-color: rgba(45, 106, 79, 0.35);
+        border-color: rgba(36, 79, 61, 0.35);
       }
 
       ul {
@@ -128,12 +126,6 @@
         margin-top: 0.65rem;
       }
 
-      code {
-        background: rgba(24, 32, 25, 0.08);
-        border-radius: 0.35rem;
-        padding: 0.1rem 0.25rem;
-      }
-
       @media (max-width: 760px) {
         .grid {
           grid-template-columns: 1fr;
@@ -143,83 +135,58 @@
   </head>
   <body>
     <main>
-      <span class="eyebrow">Free AI workflow margin checklist</span>
-      <h1>Find the workflow that is burning your AI margin</h1>
+      <span class="eyebrow">Free workflow-cost checklist</span>
+      <h1>Find the AI workflow that quietly breaks your unit economics</h1>
       <p class="lede">
-        Use this quick checklist before buying an audit. The goal is to find
-        whether the leak is retries, tool calls, context, model routing, weak
-        budget caps, or drift between usage, billing, and product access.
+        Use this before buying the audit. The goal is to stop looking only at
+        provider bills and start measuring cost per successful workflow with a
+        hard guardrail for ugly runs.
       </p>
       <div class="button-row">
         <a class="button primary" href="https://buy.stripe.com/00w9AVdwxeQDfuY9I8aR206">Buy the $49 audit</a>
-        <a class="button soft" href="./ai-agent-cost-leak-audit.html">Read the full offer</a>
-        <a class="button soft" href="./workflow-cost-checklist.html">Use the workflow-cost version</a>
-        <a class="button soft" href="./ai-agent-cost-sample-report.html">See a sample report</a>
+        <a class="button soft" href="./outcome-cost-budget-guardrail-audit.html">Read the full offer</a>
         <a class="button soft" href="https://github.com/pavelviproperty-rgb/trial-to-paid-leak-audit/issues/new?template=request-ai-agent-cost-audit.yml">Submit safe intake</a>
       </div>
 
       <section class="grid">
         <article class="card">
-          <h2>1. Count completed work, not calls</h2>
+          <h2>1. Count outcomes, not only calls</h2>
           <ul>
-            <li>Pick one workflow: sales research, support triage, HR screening, ops report.</li>
-            <li>Count successful completed runs.</li>
+            <li>Pick one customer-visible workflow.</li>
+            <li>Count successful completed runs separately.</li>
             <li>Count failed, retried, abandoned, and human-rescued runs separately.</li>
-            <li>Calculate cost per successful workflow, not only cost per token.</li>
+            <li>Calculate cost per successful workflow.</li>
           </ul>
         </article>
         <article class="card">
           <h2>2. Tag the top 20 expensive runs</h2>
           <ul>
             <li>Model used per step.</li>
-            <li>Input and output tokens per step.</li>
-            <li>Tool calls per run.</li>
-            <li>Context size and memory injected.</li>
-            <li>Whether the run changed a useful business state.</li>
+            <li>Input and output token spend.</li>
+            <li>Tool calls, context size, and memory injected.</li>
+            <li>Whether the run reached a useful business outcome.</li>
           </ul>
         </article>
       </section>
 
       <section class="grid">
         <article class="card">
-          <h2>3. Look for the boring leaks</h2>
-          <ul>
-            <li>Retries after bad tool/API responses.</li>
-            <li>Full chat history passed into every call.</li>
-            <li>Large files parsed again instead of cached.</li>
-            <li>Frontier model used for extraction, routing, or formatting.</li>
-            <li>Agent loops that research before doing the actual task.</li>
-          </ul>
-        </article>
-        <article class="card">
-          <h2>4. Add pricing guardrails</h2>
+          <h2>3. Check hard caps, not soft hopes</h2>
           <ul>
             <li>Set a per-workflow cost ceiling.</li>
-            <li>Set a per-user or per-team monthly cap.</li>
-            <li>Define overage before a power user appears.</li>
-            <li>Separate normal month, 2x volume month, and ugly retry-heavy month.</li>
-            <li>Kill or reprice any plan that goes negative in the ugly month.</li>
-          </ul>
-        </article>
-      </section>
-
-      <section class="grid">
-        <article class="card">
-          <h2>5. Check billing-state drift</h2>
-          <ul>
-            <li>What happens when the user crosses the plan limit?</li>
-            <li>Does access revoke immediately, warn only, or keep running?</li>
-            <li>Can retries keep burning cost after the buyer should be blocked?</li>
-            <li>Do you log usage state and access state on the same workflow row?</li>
+            <li>Set a per-user or per-team monthly ceiling.</li>
+            <li>Kill or downgrade retry-heavy runs automatically.</li>
+            <li>Separate staging, internal, and customer usage budgets.</li>
           </ul>
         </article>
         <article class="card">
-          <h2>6. Tag what should hard-stop</h2>
+          <h2>4. Run the ugly-month scenario</h2>
           <ul>
-            <li>Cheap tasks using premium models by default.</li>
-            <li>Retry loops after a failed tool or provider response.</li>
-            <li>Workflows with no measurable business-state change.</li>
-            <li>Runs that exceed your margin floor before they finish.</li>
+            <li>Normal month.</li>
+            <li>2x usage month.</li>
+            <li>Retry-heavy month.</li>
+            <li>One power user on a flat plan.</li>
+            <li>Kill or reprice any plan that goes negative there.</li>
           </ul>
         </article>
       </section>
@@ -228,22 +195,21 @@
         <h2>What to send for the paid audit</h2>
         <div class="grid">
           <ul>
-            <li>7-30 days of redacted usage screenshots or CSV.</li>
-            <li>One expensive trace or prompt chain.</li>
-            <li>Pricing plan, included limits, and budget rules.</li>
-            <li>Monthly AI infra spend and current model/provider list.</li>
+            <li>7-30 days of redacted usage screenshots or CSV exports.</li>
+            <li>Plan pricing and included limits.</li>
+            <li>One expensive trace or example run.</li>
+            <li>Any current retry, routing, or cap rules.</li>
           </ul>
           <ul>
             <li>No API keys.</li>
             <li>No passwords.</li>
             <li>No customer personal data.</li>
-            <li>No unrestricted production account access.</li>
+            <li>No unrestricted production access.</li>
           </ul>
         </div>
         <div class="button-row">
           <a class="button primary" href="https://buy.stripe.com/00w9AVdwxeQDfuY9I8aR206">Buy the $49 audit</a>
           <a class="button soft" href="https://buy.stripe.com/8x26oJ0JL9wj4QkaMcaR207">Get the $199 action pack</a>
-          <a class="button soft" href="./ai-agent-cost-sample-report.html">See sample report</a>
           <a class="button soft" href="https://github.com/pavelviproperty-rgb/trial-to-paid-leak-audit/issues/new?template=request-ai-agent-cost-audit.yml">Open the safe intake form</a>
         </div>
       </section>
