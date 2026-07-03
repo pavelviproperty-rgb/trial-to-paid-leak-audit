@@ -27,6 +27,21 @@ checkout, with the `$49` action pack available as the first upsell.
 Revenue only counts when Stripe shows a paid checkout. A published page,
 comments, or prepared audit packet are not revenue.
 
+## Revenue operations
+
+The repository now includes a guarded operating loop:
+
+- `scripts/site_health.py` checks the live page and every Stripe checkout;
+- `ops/leads.csv` is the review queue for researched prospects;
+- `scripts/outreach.py` creates personalized previews and sends only rows marked
+  `approved` when `OUTREACH_SEND=true`;
+- `.github/workflows/revenue-operations.yml` runs a daily health check and
+  produces preview artifacts without sending mail.
+
+To enable approved sending, configure `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`,
+`SMTP_PASSWORD`, and `OUTREACH_FROM` in the execution environment. Keep
+`OUTREACH_SEND` unset during research and review.
+
 ## AI cost variants
 
 Additional local-ready variants now exist for the same AI-cost offer family:
