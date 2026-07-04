@@ -1,11 +1,11 @@
-# Trial-to-Paid Leak Audit
+# VIPAVEL AI Profit & Revenue Ops
 
-Public landing page for a narrow Stripe diagnostic offer:
+Public conversion funnel for a combined AI cost and Stripe revenue diagnostic:
 
-- trial-to-paid leak detection;
-- first invoice after trial blind-spot explanation;
-- free diagnostic checklist;
-- direct checkout for a `$19` quick audit and `$49` action pack.
+- AI cost-per-outcome and retry waste;
+- metered billing and pricing gaps;
+- trial, webhook, entitlement, and failed-payment risks;
+- direct checkout for a `$49` diagnostic and `$199` action pack.
 
 ## Live intent
 
@@ -16,13 +16,13 @@ This repo is published on GitHub Pages as a fast public test.
 
 ## Checkout
 
-- `$19` MRR Leak Audit Pack: https://buy.stripe.com/6oUdRb0JL37VeqU7A0aR200
-- `$49` MRR Leak Action Pack: https://buy.stripe.com/dRm14p2RTeQD0A4f2saR201
+- `$49` AI Agent Cost Leak Audit: https://buy.stripe.com/00w9AVdwxeQDfuY9I8aR206
+- `$199` AI Agent Cost Action Pack: https://buy.stripe.com/8x26oJ0JL9wj4QkaMcaR207
 
 ## Important note
 
-The page is live-first. The primary CTA now sends buyers directly to Stripe
-checkout, with the `$49` action pack available as the first upsell.
+The primary CTA sends buyers directly to the existing Stripe checkout, with the
+`$199` action pack and a custom implementation sprint as expansion paths.
 
 Revenue only counts when Stripe shows a paid checkout. A published page,
 comments, or prepared audit packet are not revenue.

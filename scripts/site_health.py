@@ -6,8 +6,6 @@ from urllib.request import Request, urlopen
 
 URLS = [
     "https://pavelviproperty-rgb.github.io/trial-to-paid-leak-audit/",
-    "https://buy.stripe.com/6oUdRb0JL37VeqU7A0aR200",
-    "https://buy.stripe.com/dRm14p2RTeQD0A4f2saR201",
     "https://buy.stripe.com/00w9AVdwxeQDfuY9I8aR206",
     "https://buy.stripe.com/8x26oJ0JL9wj4QkaMcaR207",
 ]
@@ -26,4 +24,3 @@ for url in URLS:
 
 if failed:
     raise SystemExit(f"{len(failed)} revenue link(s) unavailable")
-
