@@ -24,6 +24,9 @@ This repo is published on GitHub Pages as a fast public test.
 The primary CTA sends buyers directly to the existing Stripe checkout, with the
 `$199` action pack and a custom implementation sprint as expansion paths.
 
+After purchasing, buyers can use `intake.html` to prepare a structured intake
+email without storing sensitive answers in a third-party form service.
+
 Revenue only counts when Stripe shows a paid checkout. A published page,
 comments, or prepared audit packet are not revenue.
 
