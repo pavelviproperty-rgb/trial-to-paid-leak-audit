@@ -1,0 +1,31 @@
+name: Revenue operations
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 16 * * *"
+
+permissions:
+  contents: read
+
+jobs:
+  health:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check landing page and Stripe links
+        run: python3 scripts/site_health.py
+
+  outreach-previews:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build reviewable outreach previews
+        run: python3 scripts/outreach.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: outreach-previews
+          path: ops/outbox/
+          if-no-files-found: ignore
+          retention-days: 7
+
