@@ -15,7 +15,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 LEADS = ROOT / "ops" / "leads.csv"
 OUTBOX = ROOT / "ops" / "outbox"
-FIELDS = ["company", "contact_name", "email", "website", "pain_signal", "offer", "status", "sent_at"]
+FIELDS = [
+    "company", "contact_name", "email", "website", "source_url", "pain_signal",
+    "relevance", "offer", "status", "do_not_contact", "sent_at",
+]
 EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
 
 
@@ -23,22 +26,23 @@ def message_for(row: dict[str, str]) -> tuple[str, str]:
     name = row.get("contact_name", "").strip() or "there"
     company = row.get("company", "").strip() or "your team"
     signal = row.get("pain_signal", "").strip()
-    offer = row.get("offer", "").strip() or "Stripe billing-state audit"
-    subject = f"A quick billing-state check for {company}"
-    observation = f"I noticed {signal.rstrip('.')}" if signal else "I was looking at how your product handles subscriptions and usage"
+    offer = row.get("offer", "").strip() or "AI profit and revenue diagnostic"
+    subject = f"AI margin + billing check for {company}"
+    observation = f"I noticed {signal.rstrip('.')}" if signal else "I was looking at how your product connects AI usage to billing"
     body = f"""Hi {name},
 
 {observation}.
 
-I run a focused {offer} for SaaS teams: one redacted customer lifecycle, a
-state-gap diagnosis, and a short prioritized fix list. No Stripe login or
-production access is required.
+I run a focused {offer} for small AI/SaaS teams. It checks model-cost waste,
+usage metering, Stripe billing states, and failed-payment recovery, then ranks
+the fixes by likely financial impact. No Stripe login or production write
+access is required.
 
 Would a two-sentence fit check be useful? If not, I will not follow up.
 
 Best,
 Pavel
-https://pavelviproperty-rgb.github.io/trial-to-paid-leak-audit/
+https://pavelviproperty-rgb.github.io/trial-to-paid-leak-audit/?utm_source=outreach&utm_medium=email&utm_campaign=profit-ops
 """
     return subject, body
 
@@ -77,7 +81,11 @@ def main() -> None:
     previewed = sent = 0
     for index, row in enumerate(rows, start=2):
         status = row.get("status", "").strip().lower()
+        do_not_contact = row.get("do_not_contact", "").strip().lower() in {"1", "true", "yes"}
         email = row.get("email", "").strip()
+        if do_not_contact:
+            print(f"Skipping row {index}: do not contact")
+            continue
         if status not in {"draft", "approved"}:
             continue
         if not EMAIL_RE.match(email):
@@ -99,4 +107,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-
