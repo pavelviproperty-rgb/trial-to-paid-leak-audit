@@ -1,2 +1,1 @@
-company,contact_name,email,website,pain_signal,offer,status,sent_at
-
+company,contact_name,email,website,source_url,pain_signal,relevance,offer,status,do_not_contact,sent_at
