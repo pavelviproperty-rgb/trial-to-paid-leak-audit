@@ -163,11 +163,17 @@ from the authenticated Vercel dashboard/CLI.
 
 ## Immediate next work
 
-1. In authenticated Stripe, set the two current payment links to redirect after
-   purchase to the buyer intake URL. This changes production checkout settings;
-   verify both links after saving.
-2. Identify the Vercel source project for `vipavel.shop`; decide whether the new
-   funnel should replace the homepage or live at a subdomain.
+1. Stripe post-purchase redirect to buyer intake: owner reports it was
+   configured in the dashboard on 2026-07-06. External check the same day:
+   both links HTTP 200 and their checkout pages render a
+   `redirect_success_page_layout` marker. The exact target URL is not visible
+   without auth, so per policy this stays "configured, not operational" until
+   the first completed checkout actually lands on `intake.html`.
+2. Vercel source for `vipavel.shop` identified: project `stripe-decline-codes`
+   (see Public properties note). Remaining: recover the source (Deployments →
+   latest → Source in the dashboard), commit it to a repo, and use
+   "Connect Git Repository" — dashboard confirms no project has Git connected.
+   Decision still open: funnel as homepage banner/link vs subdomain.
 3. Configure Brevo SMTP/API credentials only in GitHub Actions secrets. Never
    paste them into source or this handoff.
 4. Build a small, evidence-backed ICP list of AI/SaaS companies using Stripe.
