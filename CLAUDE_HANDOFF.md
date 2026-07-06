@@ -173,9 +173,12 @@ from the authenticated Vercel dashboard/CLI.
    https://github.com/pavelviproperty-rgb/vipavel-shop-source (34 pages
    mirrored from the live site against the deployment's Source tree, plus
    root files and verbatim `vercel.json`; homepage byte-identical to live).
-   Remaining owner step: "Connect Git Repository" on the Vercel project
-   (grants the Vercel GitHub app access — owner-approval action), then verify
-   production output is unchanged. Decision still open: funnel as homepage
+   COMPLETE: owner installed the Vercel GitHub app; the repo was connected
+   to the project and the first Git deployment (commit deae132, branch main)
+   went to production on 2026-07-06. Verified: all 40 pages/files
+   byte-identical to the previous CLI deployment, all vercel.json redirects
+   (307/308) and security headers intact. vipavel.shop is now editable via
+   the vipavel-shop-source repo. Decision still open: funnel as homepage
    banner/link vs subdomain.
 3. Configure Brevo SMTP/API credentials only in GitHub Actions secrets. Never
    paste them into source or this handoff.
