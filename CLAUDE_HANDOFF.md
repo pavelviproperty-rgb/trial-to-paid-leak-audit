@@ -128,8 +128,16 @@ Vercel projects observed as production-ready:
 - `ai-spend-calculator`
 - `mrr-leak-calculator`
 
-The exact Vercel source repository for `vipavel.shop` was not found locally.
-Do not assume the GitHub Pages repo is the current Vercel source.
+Verified 2026-07-06: `vipavel.shop` is served by the Vercel project
+`stripe-decline-codes` (identical `etag` and `last-modified` between
+`https://vipavel.shop/` and `https://stripe-decline-codes.vercel.app/`).
+The homepage is the "Stripe Decline Code Reference" tool, which links to the
+two active Stripe payment links and to `mrr-leak-calculator.vercel.app`.
+Its source is NOT in any `pavelviproperty-rgb` GitHub repo and was not found
+on the local machine — it was deployed from another device or via CLI upload.
+Do not assume the GitHub Pages repo is the current Vercel source. To edit the
+homepage, locate the source on the original device or pull the deployment
+from the authenticated Vercel dashboard/CLI.
 
 ## Automation already implemented
 
