@@ -55,3 +55,16 @@ Additional local-ready variants now exist for the same AI-cost offer family:
 - Outcome-cost audit: https://pavelviproperty-rgb.github.io/trial-to-paid-leak-audit/outcome-cost-budget-guardrail-audit.html
 - Workflow-cost checklist: https://pavelviproperty-rgb.github.io/trial-to-paid-leak-audit/workflow-cost-checklist.html
 - AI cost sample report: https://pavelviproperty-rgb.github.io/trial-to-paid-leak-audit/ai-agent-cost-sample-report.html
+
+## Programmatic SEO funnel
+
+The site now includes a hub plus narrow problem pages for:
+
+- failed payments recovery;
+- trial conversion;
+- webhook and entitlement drift;
+- AI cost monitoring;
+- metered billing gaps;
+- billing portal friction.
+
+Each page routes to the same checkout and intake flow so search traffic does not fragment the offer.
