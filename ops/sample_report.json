@@ -1,0 +1,11 @@
+{
+  "report_type": "profit_leak_diagnostic",
+  "fixture": true,
+  "generated_at": "2026-07-20",
+  "findings": [
+    {"id":"BILL-001","severity":"high","area":"failed_renewal","evidence":"7 renewal attempts failed in 30 days","monthly_impact_usd":490,"confidence":"medium","smallest_fix":"Enable recovery emails and retry schedule; verify dunning events."},
+    {"id":"ENT-002","severity":"medium","area":"entitlement_drift","evidence":"Successful payment state is not joined to access state","monthly_impact_usd":150,"confidence":"low","smallest_fix":"Reconcile invoice.paid against the access grant table daily."},
+    {"id":"AI-003","severity":"medium","area":"ai_cost","evidence":"Usage cost is tracked separately from paid outcome","monthly_impact_usd":220,"confidence":"low","smallest_fix":"Add cost-per-successful-outcome guardrail before scaling traffic."}
+  ],
+  "disclaimer": "Synthetic fixture for the public demo; not customer data."
+}

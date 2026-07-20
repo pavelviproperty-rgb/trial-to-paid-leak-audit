@@ -23,7 +23,7 @@
         <h1>Keep more of every dollar you earn.</h1>
         <p class="lede">We find AI cost waste and Stripe revenue leaks across model usage, metered billing, trials, webhooks, failed payments, and access state.</p>
         <div class="buttons">
-          <a class="button primary" href="https://buy.stripe.com/00w9AVdwxeQDfuY9I8aR206">Start the $49 diagnostic</a>
+          <a class="button primary checkout-link" data-source="hero" href="https://buy.stripe.com/00w9AVdwxeQDfuY9I8aR206">Start the $49 diagnostic</a>
           <a class="button secondary" href="ai-agent-cost-sample-report.html">View a sample report</a>
         </div>
         <p class="proof">Focused scope. Actionable findings. No write access to your Stripe account. Already purchased? <a href="intake.html">Start the intake</a>.</p>
@@ -73,7 +73,7 @@
       <p class="kicker">Start small, expand only when the numbers support it</p>
       <h2>Choose the right depth.</h2>
       <div class="grid pricing">
-        <article class="card featured"><h3>Profit Leak Diagnostic</h3><div class="price">$49</div><p>Focused review, issue map, severity ranking, and recommended next actions.</p><ul><li>AI cost controls</li><li>Stripe billing states</li><li>Revenue recovery gaps</li></ul><a class="button primary" href="https://buy.stripe.com/00w9AVdwxeQDfuY9I8aR206">Buy the diagnostic</a></article>
+        <article class="card featured"><h3>Profit Leak Diagnostic</h3><div class="price">$49</div><p>Focused review, issue map, severity ranking, and recommended next actions.</p><ul><li>AI cost controls</li><li>Stripe billing states</li><li>Revenue recovery gaps</li></ul><a class="button primary checkout-link" data-source="pricing" href="https://buy.stripe.com/00w9AVdwxeQDfuY9I8aR206">Buy the diagnostic</a></article>
         <article class="card"><h3>Action Pack</h3><div class="price">$199</div><p>Deeper implementation plan, checks, templates, and technical remediation guidance.</p><ul><li>Prioritized fix plan</li><li>Guardrail templates</li><li>Billing workflow checks</li></ul><a class="button secondary" href="https://buy.stripe.com/8x26oJ0JL9wj4QkaMcaR207">Get the action pack</a></article>
         <article class="card"><h3>Implementation Sprint</h3><div class="price">Custom</div><p>Hands-on implementation after the diagnostic confirms a valuable problem.</p><ul><li>Scoped remediation</li><li>Verification</li><li>Monitoring handoff</li></ul><a class="button secondary" href="mailto:info@vipavel.shop?subject=Implementation%20Sprint">Discuss implementation</a></article>
       </div>
@@ -96,8 +96,22 @@
       <details><summary>Do you guarantee savings?</summary><p>No. The diagnostic identifies evidence-backed gaps and opportunities; results depend on the system and implementation.</p></details>
     </section>
 
-    <section class="wrap"><div class="final"><p class="kicker">AI Profit &amp; Revenue Ops</p><h2>Find the leak before scaling the spend.</h2><p class="intro" style="margin-inline:auto">Start with a bounded diagnostic using the payment infrastructure already in place.</p><div class="buttons"><a class="button primary" href="https://buy.stripe.com/00w9AVdwxeQDfuY9I8aR206">Start for $49</a><a class="button secondary" href="mailto:info@vipavel.shop?subject=AI%20Profit%20%26%20Revenue%20Ops">Ask a question</a></div></div></section>
+    <section class="wrap"><div class="final"><p class="kicker">AI Profit &amp; Revenue Ops</p><h2>Find the leak before scaling the spend.</h2><p class="intro" style="margin-inline:auto">Start with a bounded diagnostic using the payment infrastructure already in place.</p><div class="buttons"><a class="button primary checkout-link" data-source="final" href="https://buy.stripe.com/00w9AVdwxeQDfuY9I8aR206">Start for $49</a><a class="button secondary" href="mailto:info@vipavel.shop?subject=AI%20Profit%20%26%20Revenue%20Ops">Ask a question</a></div></div></section>
   </main>
+  <script>
+    // Privacy-safe attribution: pass a non-personal source label into Stripe and keep a local audit trail.
+    document.querySelectorAll('.checkout-link').forEach((link) => {
+      const source = link.dataset.source || 'site';
+      const url = new URL(link.href);
+      url.searchParams.set('client_reference_id', `vipavel_${source}`);
+      link.href = url.toString();
+      link.addEventListener('click', () => {
+        const events = JSON.parse(localStorage.getItem('vipavel_events') || '[]');
+        events.push({event:'checkout_click', source, at:new Date().toISOString()});
+        localStorage.setItem('vipavel_events', JSON.stringify(events.slice(-50)));
+      });
+    });
+  </script>
   <footer class="wrap">© 2026 VIPAVEL LLC · <a href="mailto:info@vipavel.shop">info@vipavel.shop</a></footer>
 </body>
 </html>
