@@ -128,8 +128,16 @@ Vercel projects observed as production-ready:
 - `ai-spend-calculator`
 - `mrr-leak-calculator`
 
-The exact Vercel source repository for `vipavel.shop` was not found locally.
-Do not assume the GitHub Pages repo is the current Vercel source.
+Verified 2026-07-06: `vipavel.shop` is served by the Vercel project
+`stripe-decline-codes` (identical `etag` and `last-modified` between
+`https://vipavel.shop/` and `https://stripe-decline-codes.vercel.app/`).
+The homepage is the "Stripe Decline Code Reference" tool, which links to the
+two active Stripe payment links and to `mrr-leak-calculator.vercel.app`.
+Its source is NOT in any `pavelviproperty-rgb` GitHub repo and was not found
+on the local machine — it was deployed from another device or via CLI upload.
+Do not assume the GitHub Pages repo is the current Vercel source. To edit the
+homepage, locate the source on the original device or pull the deployment
+from the authenticated Vercel dashboard/CLI.
 
 ## Automation already implemented
 
@@ -155,11 +163,23 @@ Do not assume the GitHub Pages repo is the current Vercel source.
 
 ## Immediate next work
 
-1. In authenticated Stripe, set the two current payment links to redirect after
-   purchase to the buyer intake URL. This changes production checkout settings;
-   verify both links after saving.
-2. Identify the Vercel source project for `vipavel.shop`; decide whether the new
-   funnel should replace the homepage or live at a subdomain.
+1. DONE 2026-07-06 (Claude, via authorized dashboard session): both current
+   payment links ($49 plink_1Te9bzRtaPBfG6s3HqaV2JWW, $199
+   plink_1Te9ceRtaPBfG6s3K4tMwf0w) redirect after purchase to the buyer
+   intake URL; verified in each link's Details ("Confirmation page" shows the
+   intake URL) and in the update events. Still requires one real completed
+   checkout to count as operational per policy.
+2. DONE 2026-07-06: source for `vipavel.shop` recovered into the private repo
+   https://github.com/pavelviproperty-rgb/vipavel-shop-source (34 pages
+   mirrored from the live site against the deployment's Source tree, plus
+   root files and verbatim `vercel.json`; homepage byte-identical to live).
+   COMPLETE: owner installed the Vercel GitHub app; the repo was connected
+   to the project and the first Git deployment (commit deae132, branch main)
+   went to production on 2026-07-06. Verified: all 40 pages/files
+   byte-identical to the previous CLI deployment, all vercel.json redirects
+   (307/308) and security headers intact. vipavel.shop is now editable via
+   the vipavel-shop-source repo. Decision still open: funnel as homepage
+   banner/link vs subdomain.
 3. Configure Brevo SMTP/API credentials only in GitHub Actions secrets. Never
    paste them into source or this handoff.
 4. Build a small, evidence-backed ICP list of AI/SaaS companies using Stripe.
